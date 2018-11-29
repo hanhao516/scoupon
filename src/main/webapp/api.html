@@ -1,0 +1,710 @@
+fanli:tk.7fanli.com:8080/Seven/fanli/test.do?itemid=550072055121&interfaceName=getCode<br/>
+添加用户<br/>
+tk.7fanli.com:8080/Seven/fanli/addUser.do?identCode=550072055121&password=getCode<br/>
+<p  style="background-color:green;">addUser(User, String)<p><br/>
+入参：{<br/>
+		identCode：111111<br/>
+		password：123456<br/>
+		user_name：13416420236<br/>
+		user_tel：13416420236<br/>
+		callback：支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"flag":true,"msg":"new wx user","user_id":"204920496470"<br/>
+	}<br/>
+	<br/>
+oa登陆<br/>
+<p  style="background-color:green;">adminLogin( User, String)<p><br/>
+入参：{<br/>
+		password：123456<br/>
+		user_name：13416420236<br/>
+		callback：支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"flag":true,"msg":"success"<br/>
+	}<br/>
+<br/>
+给没有媒体id的用户添加媒体id<br/>
+<p  style="background-color:green;">allUserAdzoneCreate()<p><br/>
+<br/>
+入参：{<br/>
+	}<br/>
+返回：{<br/>
+	}<br/>
+增量添加并查询微信用户<br/>
+apendWxInfo( String)<br/>
+入参：{<br/>
+		user ： {\"openid\":\"oOon30pXflNPJkGg2U-2Vl9QvTdQ\",\"nickname\":\"欧阳明\",\"sex\":1,\"language\":\"zh_CN\",\"city\":\"杭州\",\"province\":\"浙江\",\"country\":\"中国\",\"headimgurl\":\"http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erfOO7Yiabch3ob48ibic2wp2icibkHm47pNF9ArwaHbO5ItrNKdiaLicrm4GqvUTI1VMuRic7UCWxB9e8aibA/0\",\"privilege\":[]}<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"flag":true,"msg":"new wx user","user_id":"204920496470"<br/>
+	}<br/>
+<br/>
+app检查token：弃用<br/>
+<p  style="background-color:red;">checkToken( String)<p><br/>
+保存图片到PHP：弃用<br/>
+<p  style="background-color:red;">copyImgToPHP( String, String)<p><br/>
+<br/>
+<br/>
+发送注册验证码<br/>
+<p  style="background-color:green;">createRegistSMV( String)<p><br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"identCode":"606314","msgFlag":true<br/>
+	}<br/>
+<br/>
+更新支付宝信息短信<br/>
+<p  style="background-color:green;">createUpAlipaySMV( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"identCode":"606314","msgFlag":true<br/>
+	}<br/>
+更新用户信息短信<br/>
+<p  style="background-color:green;">createUPWSMV( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"identCode":"606314","msgFlag":true<br/>
+	}<br/>
+<br/>
+提现明细<br/>
+<p  style="background-color:green;">drawDetail( String, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_id ： 204920494768<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"alipay_user_name":"13416420236","cust_id":204920494768,"id":3634,"money":0.20,"real_name":"岳加俊","reject":"","time":1522138945000,"type":"4","user_name":"13416420236","user_nick":"小小"},<br/>
+		{"alipay_user_name":"13416420236","cust_id":204920494768,"id":2724,"money":0.10,"real_name":"岳加俊","reject":"测试","time":1520245016000,"type":"5","user_name":"13416420236","user_nick":"小小"}<br/>
+	]<br/>
+<br/>
+获取媒体信息<br/>
+<p  style="background-color:green;">getAdzoneInfo( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		unionid ： oOon30k-qMcjEOl4bmX1xh3pDnn0<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"adzone_id":247250418,"flag":true,"site_id":42050485<br/>
+	}<br/>
+<br/>
+订单明细<br/>
+<p  style="background-color:green;">getTradeList( String, String, String, String)<p><br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		user_id ： 204920494768<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,<br/>
+		"list":[<br/>
+			{"auctionNum":1,"auctionTitle":"纯羊毛高档牛仔帽骑马帽马术帽丽华正品黑棕色礼帽男士女士帽子","channel_yugu_user_fee":6.60,"createTime":1513044313000,"earningTime":1515130194000,"exShopTitle":"丽华品牌礼帽网络直销店","feeString":6.60,"finalfee":5.89,"payStatus":4,"realPayFeeString":110.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"1111","tax_fee":0.05,"tb_service_fee":0.66,"tkPubShareFeeString":6.60,"totalAlipayFeeString":110.00,"user_id":204920494768}<br/>
+			],<br/>
+			"pageNo":"1","pageSize":"10","pageSum":1,"sum":5.89<br/>
+	}<br/>
+<br/>
+获取登陆id<br/>
+<p  style="background-color:green;">getWxLoginId( String)<p><br/>
+<br/>
+入参：{<br/>
+	}<br/>
+返回：{<br/>
+		"loginId":"e0ca5732d42448b1ab40cac720806103"<br/>
+	}<br/>
+<br/>
+购南针用户注册<br/>
+<p  style="background-color:green;">GNZUserLogin( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		token ： e0ca5732d42448b1ab40cac720806103<br/>
+		channel_id ： 1001<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：跳转到个人中心<br/>
+<br/>
+弃用<br/>
+<p  style="background-color:red;">incomeDetail( String, String, String, String, String, String)<p><br/>
+<br/>
+<br/>
+<br/>
+是否登陆<br/>
+<p  style="background-color:green;">isLogined( User, String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"flag":false,"mid":["12760729","16560291","27755467","125838936"]<br/>
+	}<br/>
+<br/>
+登陆<br/>
+<p  style="background-color:green;">login( User, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_name ： 13416420236<br/>
+		password ： 13416420236<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"flag":"true","msg":"success"<br/>
+	}<br/>
+<br/>
+查询登陆状态<br/>
+<p  style="background-color:green;">loginStatus( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		loginId ： e0ca5732d42448b1ab40cac720806103<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"loginId":"8a9f215228574693abfc951f88181fc0",<br/>
+		"status":"1" 1 为创建 2为已经登陆<br/>
+	}<br/>
+<br/>
+弃用<br/>
+<p  style="background-color:red;">logout( String, String)<p><br/>
+<br/>
+<br/>
+转发python接口<br/>
+<p  style="background-color:green;">python( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		interfaceName ： getCode<br/>
+		param ： interfaceName接口所有需要的参数<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：返回python接口数据<br/>
+<br/>
+验证码确认接口<br/>
+<p  style="background-color:green;">registSMV( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		identCode ： 606314<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+<br/>
+弃用<br/>
+<p  style="background-color:red;">selectUser( String)<p><br/>
+<br/>
+<br/>
+用户信息查询<br/>
+<p  style="background-color:green;">selectUserInfo( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		openid ： oOon30k-qMcjEOl4bmX1xh3pDnn0<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"ad_permission":"1","channel_id":0,"create_time":1518409099000,"user_id":204920494768,"user_name":"13416420236","user_nick":"小小","user_pic":"204920492049-1516784148601.jpg","user_tel":"13416420236","wx_id":"oOon30k-qMcjEOl4bmX1xh3pDnn0","wx_name":"yuejiajun"<br/>
+	}<br/>
+<br/>
+二维码生成<br/>
+<p  style="background-color:green;">shareQR( String, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_id ： 204920494768 （可选）<br/>
+		item_id ： 550072055121 （可选）<br/>
+		title ： 苹果 （可选）<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"imgUrl":"3cd69fad10f048638c8cf597fe02adbb.jpg","qr_url":"http://weixin.qq.com/q/02sA7OwiW9fTi1PsVBxq13","share_id":"511","time":"2018-03-30 11:19:56","unuse_time":"2018-04-30 11:19:56","user_id":"204920494768"<br/>
+	}<br/>
+<br/>
+淘宝登陆<br/>
+<p  style="background-color:green;">taobaoPublicLogin( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		code ： ************（淘宝授权码code）<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：跳到个人中心<br/>
+<br/>
+弃用：提现列表<br/>
+<p  style="background-color:red;">tradeList( String, String, String, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_id ： 204920494768<br/>
+		time ： 2018-03-01 11:12:12 （可选）<br/>
+		type ： 3 （可选）<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"identCode":"606314","msgFlag":true<br/>
+	}<br/>
+<br/>
+弃用<br/>
+<p  style="background-color:red;">transferMoney( String, String)<p><br/>
+<br/>
+//未登陆接口<br/>
+<p  style="background-color:green;">unLogin( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"msg"："unLogin","flag":false<br/>
+	}<br/>
+验证码确认接口<br/>
+<p  style="background-color:green;">upAlipaySMV( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		identCode ： 606314<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"identCode":"606314","msgFlag":true<br/>
+	}<br/>
+<br/>
+验证码确认接口<br/>
+<p  style="background-color:green;">updatePW( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		identCode ： 606314<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+更新提现状态<br/>
+<p  style="background-color:green;">upTradeType( PayTask, String)<p><br/>
+<br/>
+入参：{<br/>
+		task_id ： 111<br/>
+		type ： 5 （4 提现成功  5 提现失败）<br/>
+		reject ： 支付宝姓名错误<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+<br/>
+验证码确认接口<br/>
+<p  style="background-color:green;">UPWSMV( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		identCode ： 606314<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+<br/>
+用户列表<br/>
+<p  style="background-color:green;">userList( User, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_name ： 13416420236<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+	{"balance":5.69,"create_time":1518409099000,"draw_money":0.20,"drawing":0.0,"total_amt":5.89,"user_id":204920494768,"user_name":"13416420236","user_nick":"小小","user_pic":"204920492049-1516784148601.jpg"}<br/>
+	]<br/>
+<br/>
+用户存在验证<br/>
+<p  style="background-color:green;">userNameValid( String)<p><br/>
+<br/>
+入参：{<br/>
+		userName ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+<br/>
+微信公众号登陆<br/>
+<p  style="background-color:green;">weChatPublicLogin( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		loginId ： "e0ca5732d42448b1ab40cac720806103"<br/>
+		openid ： oOon30k-qMcjEOl4bmX1xh3pDnn0<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"status":"2","loginId":"e0ca5732d42448b1ab40cac720806103"<br/>
+	}<br/>
+	或者跳到个人中心<br/>
+	<br/>
+微信用户直接登陆<br/>
+<p  style="background-color:green;">wxLogin( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		loginId ： e0ca5732d42448b1ab40cac720806103<br/>
+		openid ： oOon30k-qMcjEOl4bmX1xh3pDnn0<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"status":2,"wx_id":"oOon30k-qMcjEOl4bmX1xh3pDnn0","loginId":e0ca5732d42448b1ab40cac720806103<br/>
+	}<br/>
+<br/>
+------------------------------------------------------------------------------------------<br/>
+<br/>
+al:tk.7fanli.com:8080/Seven/al/test.do?itemid=550072055121&interfaceName=getCode<br/>
+<br/>
+支付宝信息保存<br/>
+<p  style="background-color:green;">alipayInfoSave( AlipayInfo, String)<p><br/>
+<br/>
+入参：{<br/>
+		real_name ： 岳加俊 （URLDecoder.decode(req.getParameter("real_name"), "UTF-8");）<br/>
+		alipay_user_name ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"msg":"success"<br/>
+	}<br/>
+<br/>
+弃用<br/>
+<p  style="background-color:red;">bindTb( String)<p><br/>
+<br/>
+<br/>
+为没有绑定手机号的用户绑定手机号<br/>
+<p  style="background-color:green;">bindTel( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		identCode ： "606314"<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"bind_flag":true,"msg":" combine success "<br/>
+	}<br/>
+<br/>
+绑定手机短信<br/>
+<p  style="background-color:green;">bindTelWSMV( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,"identCode":"606314","msgFlag":true<br/>
+	}<br/>
+明细查询<br/>
+<p  style="background-color:green;">drawDetail( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+	"drawDetailList":[<br/>
+		{"alipay_user_name":"13416420236","cust_id":204920494768,"id":3634,"money":0.20,"real_name":"岳加俊","reject":"","time":1522138945000,"type":"4","user_name":"13416420236","user_nick":"小小"},<br/>
+		{"alipay_user_name":"13416420236","cust_id":204920494768,"id":2724,"money":0.10,"real_name":"岳加俊","reject":"测试","time":1520245016000,"type":"5","user_name":"13416420236","user_nick":"小小"}<br/>
+		],<br/>
+		"flag":true,"msg":"success"<br/>
+	}<br/>
+<br/>
+支付宝信息查询<br/>
+<p  style="background-color:green;">getAlipayInfo( String)<p><br/>
+<br/>
+入参：{<br/>
+	}<br/>
+返回：{<br/>
+		"alipay_user_name":"13416420236","real_name":"岳加俊","run_status":"0","save_time":1522138860000,"user_id":204920494768<br/>
+	}<br/>
+<br/>
+用户佣金查询<br/>
+<p  style="background-color:green;">getAmtInfo( String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"balance":5.69,"draw_money":0.20,"task_amt_list":[null],"total_amt":5.89,"total_task_money":0,"user_id":204920494768<br/>
+	}<br/>
+<br/>
+订单明细<br/>
+<p  style="background-color:green;">getTradeList( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+	"count":1,"list":[<br/>
+		{"auctionNum":1,"auctionTitle":"纯羊毛高档牛仔帽骑马帽马术帽丽华正品黑棕色礼帽男士女士帽子","channel_yugu_user_fee":6.60,"createTime":1513044313000,"earningTime":1515130194000,"exShopTitle":"丽华品牌礼帽网络直销店","feeString":6.60,"finalfee":5.89,"payStatus":4,"realPayFeeString":110.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"1111","tax_fee":0.05,"tb_service_fee":0.66,"tkPubShareFeeString":6.60,"totalAlipayFeeString":110.00,"user_id":204920494768}<br/>
+		],"pageNo":"1","pageSize":"10","pageSum":1<br/>
+	}<br/>
+<br/>
+是否绑定电话号码<br/>
+<p  style="background-color:green;">haveTel( String)<p><br/>
+<br/>
+入参：{<br/>
+	}<br/>
+返回：{<br/>
+		"flag":true<br/>
+	}<br/>
+<br/>
+提现任务保存<br/>
+<p  style="background-color:green;">payTastSave( PayTask, String)<p><br/>
+<br/>
+入参：{<br/>
+		money ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+<br/>
+用户信息查询<br/>
+<p  style="background-color:green;">selectUser( String)<p><br/>
+<br/>
+入参：{<br/>
+	}<br/>
+返回：{<br/>
+		"ad_permission":"1","alipay_user_name":"13416420236","balance":5.69,"channel_id":0,"create_time":1518409099000,"draw_money":0.20,"real_name":"岳加俊","run_status":"0","save_time":1522138860000,"total_amt":5.89,"unused":0,"user_id":204920494768,"user_name":"13416420236","user_nick":"小小","user_pic":"http://tk.7fanli.com:8080/Seven/image/204920492049-1516784148601.jpg","user_tel":"13416420236","wx_id":"oOon30k-qMcjEOl4bmX1xh3pDnn0","wx_name":"yuejiajun"<br/>
+	}<br/>
+	<br/>
+分享商品明细查询<br/>
+<p  style="background-color:green;">shareItems( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"click_count":0,"user_id":204920494768},<br/>
+		{"click_count":0,"item_id":543158973207,"item_name":"欧美潮牌皮衣PU皮夹克棒球服秋冬季修身潮男士情侣装加绒机车外套","item_url":"https://item.taobao.com/item.htm?id=543158973207","user_id":204920494768}<br/>
+	]<br/>
+<br/>
+分享订单明细查询<br/>
+<p  style="background-color:green;">shareOrders( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"almm_userid":0,"auctionId":1234567,"auctionNum":0,"auctionTitle":"测***************","auctionUrl":"0","bizType":0,"buy_user_id":999999999,"channel_huihex_fee":0.00,"channel_income_fee":0.00,"channel_share_fee":0.00,"channel_user_fee":0.00,"channel_yugu_share_fee":0.00,"channel_yugu_user_fee":0.00,"createTime":1521043200000,"discountAndSubsidyToString":"0","earningTime":1521561600000,"exMemberId":0,"exNickName":"0","exShopTitle":"哈哈哈","feeString":0.00,"finalDiscountToString":0,"finalfee":0.00,"order_item_id":0,"payPrice":0.00,"payStatus":3,"realPayFee":0.00,"realPayFeeString":0.00,"service_fee":0.00,"shareRate":"0","share_fee":0.00,"share_user_id":204920495544,"taobaoTradeParentId":999999998,"tax_fee":0.00,"tb_service_fee":0.00,"terminalType":"0","tk3rdPubShareFee":0,"tk3rdTypeStr":"0","tkBizTag":0,"tkPubShareFeeString":0.000,"tkShareRate":0.00,"tkShareRateToString":0,"totalAlipayFeeString":0.00},<br/>
+		{"almm_userid":0,"auctionId":123456789,"auctionNum":0,"auctionTitle":"测***************","auctionUrl":"0","bizType":0,"buy_user_id":999999999,"channel_huihex_fee":0.00,"channel_income_fee":0.00,"channel_share_fee":0.00,"channel_user_fee":0.00,"channel_yugu_share_fee":0.00,"channel_yugu_user_fee":0.00,"createTime":1519920000000,"discountAndSubsidyToString":"0","earningTime":1521561600000,"exMemberId":0,"exNickName":"滴滴滴滴","exShopTitle":"嘿嘿嘿","feeString":0.00,"finalDiscountToString":0,"finalfee":0.00,"order_item_id":0,"payPrice":0.00,"payStatus":3,"realPayFee":0.00,"realPayFeeString":0.00,"service_fee":0.00,"shareRate":"0","share_fee":0.00,"share_user_id":204920495544,"taobaoTradeParentId":999999999,"tax_fee":0.00,"tb_service_fee":0.00,"terminalType":"0","tk3rdPubShareFee":0,"tk3rdTypeStr":"0","tkBizTag":0,"tkPubShareFeeString":0.000,"tkShareRate":0.00,"tkShareRateToString":0,"totalAlipayFeeString":0.00},<br/>
+		{"almm_userid":4,"auctionId":565674058861,"auctionNum":1,"auctionTitle":"小***************","auctionUrl":"http://item.taobao.com:80/item.htm?id=565674058861","bizType":200,"buy_user_id":204920492926,"channel_huihex_fee":0.00,"channel_income_fee":0.00,"channel_share_fee":0.00,"channel_user_fee":0.00,"channel_yugu_share_fee":0.00,"channel_yugu_user_fee":0.00,"createTime":1521716727000,"discountAndSubsidyToString":"5.00 %","exMemberId":12375520,"exNickName":"小虫米子","exShopTitle":"小虫XIAOCHONG","feeString":0.00,"finalDiscountToString":5,"finalfee":0.00,"order_item_id":0,"payPrice":368.00,"payStatus":13,"realPayFeeString":0.00,"service_fee":0.00,"shareRate":"100.00 %","share_fee":0.00,"share_user_id":204920495544,"taobaoTradeParentId":127346689879546940,"tax_fee":0.00,"tb_service_fee":0.00,"terminalType":"PC","tk3rdPubShareFee":0,"tkBizTag":1,"tkPubShareFeeString":0.000,"tkShareRate":0.00,"tkShareRateToString":0,"totalAlipayFeeString":0.00},<br/>
+		{"almm_userid":4,"auctionId":565674058861,"auctionNum":1,"auctionTitle":"小***************","auctionUrl":"http://item.taobao.com:80/item.htm?id=565674058861","bizType":200,"buy_user_id":204920492926,"channel_huihex_fee":0.00,"channel_income_fee":0.00,"channel_share_fee":0.00,"channel_user_fee":0.00,"channel_yugu_share_fee":0.00,"channel_yugu_user_fee":0.00,"createTime":1521716822000,"discountAndSubsidyToString":"5.00 %","exMemberId":12375520,"exNickName":"小虫米子","exShopTitle":"小虫XIAOCHONG","feeString":0.00,"finalDiscountToString":5,"finalfee":0.00,"order_item_id":0,"payPrice":368.00,"payStatus":13,"realPayFeeString":0.00,"service_fee":0.00,"shareRate":"100.00 %","share_fee":0.00,"share_user_id":204920495544,"taobaoTradeParentId":127450543062546940,"tax_fee":0.00,"tb_service_fee":0.00,"terminalType":"PC","tk3rdPubShareFee":0,"tkBizTag":1,"tkPubShareFeeString":0.000,"tkShareRate":0.00,"tkShareRateToString":0,"totalAlipayFeeString":0.00}<br/>
+	]<br/>
+<br/>
+分享关系查询<br/>
+<p  style="background-color:green;">shareRelation( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		tel ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"buy_user_id":999999999,"lose_relation_time":1537618332000,"relation_time":1519906332000,"share_user_id":204920495544,"user_name":"999999999","user_nick":"用户999999999","wx_id":"999999999","wx_name":"测试"},<br/>
+		{"buy_user_id":204920492926,"lose_relation_time":1528991999000,"relation_time":1521169213000,"share_user_id":204920495544,"user_name":"15757116264","user_nick":"p*****","wx_id":"oOon30s9cLlFTI_u-j90ltBZjBHE"},<br/>
+		{"buy_user_id":204920495302,"lose_relation_time":1529337599000,"relation_time":1521533614000,"share_user_id":204920495544,"user_nick":"用户204920495302"}<br/>
+	]<br/>
+<br/>
+废弃<br/>
+<p  style="background-color:red;">tradeList( String, String)<p><br/>
+<br/>
+<br/>
+ 未生效明细查询<br/>
+ <p  style="background-color:green;">unusedDetail( String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"flag":true,"msg":"success","unusedDetailList":[<br/>
+			{"auctionNum":2,"auctionTitle":"五袋包邮淘金币永和豆浆粉 经典原味低糖350豆浆粉即食冲饮早餐","createTime":1519951498000,"earningTime":1520398739000,"exShopTitle":"鑫辰飞有机营养食品店","finalfee":0.00,"payStatus":3,"realPayFeeString":23.60,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"133195437410756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":0.71,"totalAlipayFeeString":23.60,"unused":0.71,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"鲜花饼云南特产现烤手工玫瑰饼好吃的美食小吃糕点零食500g礼盒装","createTime":1520239190000,"earningTime":1520812106000,"exShopTitle":"花香随鲜花饼","finalfee":0.00,"payStatus":3,"realPayFeeString":13.80,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"134338592631756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":2.07,"totalAlipayFeeString":13.80,"unused":2.07,"user_id":10036},<br/>
+			{"auctionNum":7,"auctionTitle":"东北杂粮农家小米新米 黄小米孕妇宝宝吃的小黄米粥月子米250g","createTime":1520295630000,"earningTime":1520812083000,"exShopTitle":"淘香米","finalfee":0.00,"payStatus":3,"realPayFeeString":19.84,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"134464005463756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":2.98,"totalAlipayFeeString":19.84,"unused":2.98,"user_id":10036},<br/>
+			{"auctionNum":2,"auctionTitle":"东北特产粘豆包正宗大黄米粘玉米黏豆包糯米年糕手工自制1件包邮","createTime":1520295630000,"earningTime":1520812081000,"exShopTitle":"淘香米","finalfee":0.00,"payStatus":3,"realPayFeeString":12.40,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"134464005463756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":0.62,"totalAlipayFeeString":12.40,"unused":0.62,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"LP护踝男运动扭伤防护专业篮球护裸脚腕固定绑带女保暖护脚踝护具","createTime":1520297796000,"earningTime":1520509367000,"exShopTitle":"锋悦运动专营店","finalfee":0.00,"payStatus":3,"realPayFeeString":88.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"134470585699756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":2.64,"totalAlipayFeeString":88.00,"unused":2.64,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"新老款波罗NEWPOLO 汽油滤清器 汽油格 汽油滤芯上海大众正品4.0","createTime":1520234794000,"earningTime":1521003982000,"exShopTitle":"上海心雨汽配15821992600","finalfee":0.00,"payStatus":3,"realPayFeeString":43.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"134575699247756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":0.65,"totalAlipayFeeString":43.00,"unused":0.65,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"2017年新东北大米黑龙江贡米农家自产正宗五常大米稻花香5kg包邮","createTime":1520238726000,"earningTime":1520898911000,"exShopTitle":"小伍米店","finalfee":0.00,"payStatus":3,"realPayFeeString":72.50,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"134596923732756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":1.09,"totalAlipayFeeString":72.50,"unused":1.09,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"【直营】德国Frosch/菲洛施柠檬高效清洁剂大瓶750ml 3瓶装","createTime":1520815852000,"earningTime":1521003946000,"exShopTitle":"天猫国际官方直营国内现货","finalfee":0.00,"payStatus":3,"realPayFeeString":99.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"136639885309756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":1.99,"totalAlipayFeeString":99.00,"unused":1.99,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"男士裤子春季新款2018休闲运动裤男纯棉长裤收口九分卫裤韩版潮流","createTime":1521018058000,"earningTime":1521340960000,"exShopTitle":"劳斯企鹅旗舰店","finalfee":0.00,"payStatus":3,"realPayFeeString":69.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"137573742768756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":3.80,"totalAlipayFeeString":69.00,"unused":3.80,"user_id":10036},<br/>
+			{"auctionNum":1,"auctionTitle":"包邮正品双林弹簧拉力器扩胸器健身器材家用木柄拉簧锻炼胸肌","createTime":1521082070000,"earningTime":1521332721000,"exShopTitle":"峰尚体育","finalfee":0.00,"payStatus":3,"realPayFeeString":23.80,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"137765318559756718","tax_fee":0.00,"tb_service_fee":0.00,"tkPubShareFeeString":1.19,"totalAlipayFeeString":23.80,"unused":1.19,"user_id":10036}<br/>
+		]<br/>
+	}<br/>
+<br/>
+更新用户图片<br/>
+<p  style="background-color:green;">uploadUserPic(MultipartFile,  String)<p><br/>
+<br/>
+入参：{<br/>
+		picFile ： MultipartFile<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：刷新页面<br/>
+			return "\<script\>localStorage.removeItem('user_pic');window.location.href='https://7fanli.com/fanliht/pc/https/index.html#/userCenter?time="+new Date().getTime()+"'\</script\>";<br/>
+<br/>
+更新用户昵称<br/>
+<p  style="background-color:green;">upUsernick( String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_nick ： hero<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"nickCount":1<br/>
+	}<br/>
+<br/>
+------------------------------------------------------------------------------------------<br/>
+<br/>
+oa:tk.7fanli.com:8080/Seven/oa/test.do?itemid=550072055121&interfaceName=getCode<br/>
+<br/>
+批量支付<br/>
+<p  style="background-color:green;">aliPayBatchTasks( String)<p><br/>
+<br/>
+入参：{<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"fail_list":[1,2],"success_list":[1,2]<br/>
+	}<br/>
+废弃<br/>
+<p  style="background-color:green;">drawDetail( String, String, String, String)<p><br/>
+<br/>
+<br/>
+订单明细<br/>
+<p  style="background-color:green;">getTradeList( String, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		user_id ： 204920494768<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1,<br/>
+		"list":[<br/>
+			{"auctionNum":1,"auctionTitle":"纯羊毛高档牛仔帽骑马帽马术帽丽华正品黑棕色礼帽男士女士帽子","channel_yugu_user_fee":6.60,"createTime":1513044313000,"earningTime":1515130194000,"exShopTitle":"丽华品牌礼帽网络直销店","feeString":6.60,"finalfee":5.89,"payStatus":4,"realPayFeeString":110.00,"service_fee":0.00,"share_fee":0.00,"taobaoTradeParentId":"1111","tax_fee":0.05,"tb_service_fee":0.66,"tkPubShareFeeString":6.60,"totalAlipayFeeString":110.00,"user_id":204920494768}<br/>
+			],<br/>
+			"pageNo":"1","pageSize":"10","pageSum":1,"sum":5.89<br/>
+	}<br/>
+<br/>
+作废<br/>
+<p  style="background-color:green;">incomeDetail( String, String, String, String, String)<p><br/>
+<br/>
+<br/>
+提现明细<br/>
+<p  style="background-color:green;">tradeIdDetail( String, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		id ： 808<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"auctionNum":1,"auctionTitle":"厄瓜多尔白虾300g(50-60只/kg) 海鲜水产","createTime":1514281396000,"earningTime":1514732040000,"exShopTitle":"天猫超市生鲜店","feeString":1.20,"finalfee":1.07,"payStatus":4,"realPayFeeString":24.07,"service_fee":0.00,"share_fee":0.24,"taobaoTradeParentId":"101739878937913855","tax_fee":0.01,"tb_service_fee":0.12,"tkPubShareFeeString":1.20,"totalAlipayFeeString":24.07,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"【天猫超市】江西赣南脐橙10个160g以上/个","createTime":1514281396000,"earningTime":1514732034000,"exShopTitle":"天猫超市生鲜店","feeString":0.64,"finalfee":0.57,"payStatus":4,"realPayFeeString":12.64,"service_fee":0.00,"share_fee":0.13,"taobaoTradeParentId":"101739878937913855","tax_fee":0.01,"tb_service_fee":0.06,"tkPubShareFeeString":0.64,"totalAlipayFeeString":12.64,"user_id":35},<br/>
+		{"auctionNum":2,"auctionTitle":"巴西板腱牛排125g 原切牛排 牛肉","createTime":1514281396000,"earningTime":1514732030000,"exShopTitle":"天猫超市生鲜店","feeString":0.96,"finalfee":0.85,"payStatus":4,"realPayFeeString":19.26,"service_fee":0.00,"share_fee":0.19,"taobaoTradeParentId":"101739878937913855","tax_fee":0.01,"tb_service_fee":0.10,"tkPubShareFeeString":0.96,"totalAlipayFeeString":19.26,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"1件5折精选白双孢菇250g 菌菇 新鲜蔬菜 火锅食材","createTime":1514281396000,"earningTime":1514732041000,"exShopTitle":"天猫超市生鲜店","feeString":0.20,"finalfee":0.18,"payStatus":4,"realPayFeeString":3.95,"service_fee":0.00,"share_fee":0.04,"taobaoTradeParentId":"101739878937913855","tax_fee":0.00,"tb_service_fee":0.02,"tkPubShareFeeString":0.20,"totalAlipayFeeString":3.95,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"龙凤牛奶馒头400g  方便速冻面食传统糕点","createTime":1514281396000,"earningTime":1514732032000,"exShopTitle":"天猫超市生鲜店","feeString":0.30,"finalfee":0.27,"payStatus":4,"realPayFeeString":6.70,"service_fee":0.00,"share_fee":0.06,"taobaoTradeParentId":"101739878937913855","tax_fee":0.00,"tb_service_fee":0.03,"tkPubShareFeeString":0.30,"totalAlipayFeeString":6.70,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"华英精切鸭掌280g 鸭掌 新鲜冷冻 鸭肉 禽肉","createTime":1514281396000,"earningTime":1514732037000,"exShopTitle":"天猫超市生鲜店","feeString":0.49,"finalfee":0.44,"payStatus":4,"realPayFeeString":9.70,"service_fee":0.00,"share_fee":0.10,"taobaoTradeParentId":"101739878937913855","tax_fee":0.01,"tb_service_fee":0.05,"tkPubShareFeeString":0.49,"totalAlipayFeeString":9.70,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"华英精切鸭肫280g 新鲜冷冻包装生鲜鸭肫 鸭肉","createTime":1514281396000,"earningTime":1514732038000,"exShopTitle":"天猫超市生鲜店","feeString":0.60,"finalfee":0.53,"payStatus":4,"realPayFeeString":11.89,"service_fee":0.00,"share_fee":0.12,"taobaoTradeParentId":"101739878937913855","tax_fee":0.01,"tb_service_fee":0.06,"tkPubShareFeeString":0.60,"totalAlipayFeeString":11.89,"user_id":35},<br/>
+		{"auctionNum":2,"auctionTitle":"华英精切鸭翅中280g 鸭肉","createTime":1514281396000,"earningTime":1514732035000,"exShopTitle":"天猫超市生鲜店","feeString":0.67,"finalfee":0.60,"payStatus":4,"realPayFeeString":13.39,"service_fee":0.00,"share_fee":0.13,"taobaoTradeParentId":"101739878937913855","tax_fee":0.01,"tb_service_fee":0.07,"tkPubShareFeeString":0.67,"totalAlipayFeeString":13.39,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"苏北农家土鸡蛋10枚 土鸡蛋 散养鸡蛋","createTime":1514281396000,"earningTime":1514732033000,"exShopTitle":"天猫超市生鲜店","feeString":0.44,"finalfee":0.39,"payStatus":4,"realPayFeeString":8.65,"service_fee":0.00,"share_fee":0.09,"taobaoTradeParentId":"101739878937913855","tax_fee":0.00,"tb_service_fee":0.04,"tkPubShareFeeString":0.44,"totalAlipayFeeString":8.65,"user_id":35},<br/>
+		{"auctionNum":1,"auctionTitle":"【天猫超市】家佳康精装冰鲜猪舌400g","createTime":1514281396000,"earningTime":1514732031000,"exShopTitle":"天猫超市生鲜店","feeString":0.37,"finalfee":0.33,"payStatus":4,"realPayFeeString":7.45,"service_fee":0.00,"share_fee":0.07,"taobaoTradeParentId":"101739878937913855","tax_fee":0.00,"tb_service_fee":0.04,"tkPubShareFeeString":0.37,"totalAlipayFeeString":7.45,"user_id":35}<br/>
+	]<br/>
+<br/>
+提现列表<br/>
+<p  style="background-color:green;">tradeList( String, String, String, String, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_id ： 204920494768<br/>
+		pageNo ： 1<br/>
+		pageSize ： 10<br/>
+		time ： 2018-03-08 11:11:11<br/>
+		user_name ： 13416420236<br/>
+		type ： 4<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"cust_id":204920496453,"id":3711,"money":1.00,"time":1522334389000,"type":"6"},<br/>
+		{"cust_id":204920496448,"id":3708,"money":1.00,"time":1522322506000,"type":"6"},<br/>
+		{"cust_id":0,"id":3049,"money":0.02,"note":"0","reject":"","time":1521625536000,"type":"1"},<br/>
+		{"alipay_user_name":"13862916116","cust_id":204920492699,"id":3255,"money":4.91,"note":"0","real_name":"何婧","reject":"","time":1521625536000,"type":"1"},<br/>
+		{"alipay_user_name":"tests","cust_id":204920495302,"id":2839,"money":0.10,"note":"0","real_name":"a","reject":"【七返利】因您的支付宝信息不正确，申请提现失败。请到电脑或微信的个人中心修改，再重新申请提现。","time":1520847247000,"type":"5"},<br/>
+		{"cust_id":204920495446,"id":2877,"money":1.00,"time":1520818902000,"type":"6"},<br/>
+		{"cust_id":204920494494,"id":2736,"money":1.00,"time":1520217027000,"type":"6"},<br/>
+		{"cust_id":204920495196,"id":2714,"money":1.00,"time":1520141640000,"type":"6"},<br/>
+		{"alipay_user_name":"","cust_id":204920495143,"id":2693,"money":1.00,"real_name":"张思国","time":1520060089000,"type":"6"},<br/>
+		{"alipay_user_name":"","cust_id":204920492049,"id":2562,"money":5.89,"note":"0","real_name":"岳加俊","reject":"","time":1519701391000,"type":"1"}<br/>
+	]<br/>
+<br/>
+支付宝转账<br/>
+<p  style="background-color:green;">transferMoney( String)<p><br/>
+<br/>
+入参：{<br/>
+		username ： 岳加俊<br/>
+		alipay_username ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+"body":"{\"alipay_fund_trans_toaccount_transfer_response\":{\"code\":\"10000\",\"msg\":\"Success\",\"order_id\":\"20180330110070001502620076339203\",\"out_biz_no\":\"1522399530128\",\"pay_date\":\"2018-03-30 16:45:31\"},\"sign\":\"4SDmCAq29QKYSExhXCmAOSa2/IpjF6ti6o7R1651/sq56PyY0+COb08WoGiYsWE42liVEiux7ID3JYNZDYFPflrTFG7Y4Rlwz/YsMN16OuV3MF3afHvj8NtrvGwT1xvArrsDgl2Rwq7D+7wSKcYhQBZwtTS3IEugFY5vYzKsFw4CfGg06VpSzyOAIpCNkEMIKjxskzhJ1T4OWayNMa75bpjM1r/KHCZA1PN9f6XXx9PQi/x/h5Y41yfbbT7pRsaknJtJkBNP+nevaTEHiamAcnOjPQ4nuBFtOeRZB8orw6Wkb1wftlgcPEtHZqG2+kepLygfODxhzEbFaT/rbrWpQA==\"}","code":"10000","errorCode":"10000","msg":"Success","orderId":"20180330110070001502620076339203","outBizNo":"1522399530128","params":{"biz_content":"{\"out_biz_no\":\"1522399530128\",\"payee_type\":\"ALIPAY_LOGONID\",\"payee_account\":\"15257151662\",\"amount\":\"0.1\",\"payer_show_name\":\"7fanli\",\"payee_real_name\":\"侯洋\",\"remark\":\"7fanli转账\"  }"},"payDate":"2018-03-30 16:45:31","success":true<br/>
+}<br/>
+更新提现状态<br/>
+upTradeType( PayTask, String)<br/>
+入参：{<br/>
+		task_id ： 111<br/>
+		type ： 5 （4 提现成功  5 提现失败）<br/>
+		reject ： 支付宝姓名错误<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：{<br/>
+		"count":1<br/>
+	}<br/>
+	<br/>
+	<br/>
+	<br/>
+用户列表<br/>
+<p  style="background-color:green;">userList( User, String, String, String)<p><br/>
+<br/>
+入参：{<br/>
+		user_name ： 13416420236<br/>
+		user_id ： 13416420236<br/>
+		callback ： 支持跨域<br/>
+	}<br/>
+返回：[<br/>
+		{"balance":0.00,"create_time":1493611200000,"draw_money":0.00,"drawing":0.0,"total_amt":0.00,"user_id":25,"user_name":"15314656702"},<br/>
+		{"balance":0.00,"create_time":1493611200000,"draw_money":839.19,"drawing":0.0,"total_amt":839.19,"user_id":30,"user_name":"18006788230","user_nick":"alineo","user_pic":"30-1511331868853.jpg"},<br/>
+		{"balance":0.00,"create_time":1493611200000,"draw_money":85.50,"drawing":0.0,"total_amt":85.50,"user_id":32,"user_name":"18767169022","user_nick":"BBH","user_pic":"32-1505268724210.jpg"},<br/>
+		{"balance":0.00,"create_time":1493611200000,"draw_money":295.76,"drawing":0.0,"total_amt":295.76,"user_id":33,"user_name":"18857297999","user_nick":"僭越","user_pic":"http://wx.qlogo.cn/mmopen/vi_32/20ic9dve9ysKodR5058FqON8xia7eb4s65qNbx3p89VDOZ6CfV1WSQ4xs3ymxh1kLNicxDAYMqxeNUl6axhC1HALA/0"},<br/>
+		{"balance":4.10,"create_time":1513752266000,"draw_money":3.70,"drawing":5.01,"total_amt":12.81,"user_id":35,"user_name":"13059783994","user_nick":"洛神","user_pic":"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIlRVTQ1mpTLbpfjBRHl4qshO6dVBO96p7WIUu5cicvrt8Hv41H8cevYHciaYSZtrqfqnEcH3FH35Jw/0"},<br/>
+		{"balance":30.11,"create_time":1493611200000,"draw_money":0.00,"drawing":0.0,"total_amt":30.11,"user_id":37,"user_name":"15251470110"},<br/>
+		{"balance":0.00,"create_time":1493611200000,"draw_money":114.05,"drawing":0.0,"total_amt":114.05,"user_id":38,"user_name":"13703288898","user_nick":"xjriver","user_pic":"38-1505267115559.jpg"},<br/>
+		{"balance":1.47,"create_time":1493611200000,"draw_money":0.00,"drawing":0.0,"total_amt":1.47,"user_id":39,"user_name":"18813116628"},<br/>
+		{"balance":0.00,"create_time":1493611200000,"draw_money":369.02,"drawing":0.0,"total_amt":369.02,"user_id":40,"user_name":"18758170547","user_nick":"无泪","user_pic":"40-1504156347585.jpg"},<br/>
+		{"balance":0.25,"create_time":1493611200000,"draw_money":0.00,"drawing":0.0,"total_amt":0.25,"user_id":41,"user_name":"17706600672"}<br/>
+	]<br/>
+<br/>
+<br/>
+<br/>

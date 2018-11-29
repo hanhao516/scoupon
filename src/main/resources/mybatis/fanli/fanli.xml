@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.data.scoupon.dao.FanliMapper">
+    <insert id="incrementInPreOrder" parameterType="List">
+		insert into 
+		`fanli`.`almm_pre_order`
+			(auctionId,auctionNum,auctionTitle,createTime,discountAndSubsidyToString,earningTime,
+			     exNickName,exShopTitle,feeString,finalDiscountToString,payPrice,payStatus,realPayFee,realPayFeeString,
+			     shareRate,taobaoTradeParentId,terminalType,tkBizTag,tkPubShareFeeString,tkShareRate,
+			     tkShareRateToString,finalDiscountFeeString,category,siteid,adzoneid)
+		values
+		<foreach collection="data" item="td" index="index" separator=",">
+					(#{td.auctionId},
+					#{td.auctionNum},
+					#{td.auctionTitle},
+					#{td.createTime},
+					#{td.discountAndSubsidyToString},
+					#{td.earningTime},
+					#{td.exNickName},
+					#{td.exShopTitle},
+					#{td.feeString},
+					#{td.finalDiscountToString},
+					#{td.payPrice},
+					#{td.payStatus} ,
+					#{td.realPayFee},
+					#{td.realPayFeeString},
+					#{td.shareRate},
+					#{td.taobaoTradeParentId},
+					#{td.terminalType},
+					#{td.tkBizTag},
+					#{td.tkPubShareFeeString},
+					#{td.tkShareRate},
+					#{td.tkShareRateToString},
+					#{td.finalDiscountFeeString},
+					#{td.category},
+					#{td.siteid},
+					#{td.adzoneid})
+		</foreach>
+ 	 </insert>
+    <insert id="heimaOrderInsert" parameterType="List">
+		replace into 
+		`fanli`.`almm_order`
+			(auctionId,auctionNum,auctionTitle,createTime,discountAndSubsidyToString,
+			     exNickName,exShopTitle,feeString,finalDiscountToString,payPrice,payStatus,realPayFee,
+			     shareRate,taobaoTradeParentId,order_item_id,tkShareRate,
+			     tkShareRateToString,finalDiscountFeeString,category,siteid,adzoneid)
+		values
+		<foreach collection="data" item="td" index="index" separator=",">
+					(#{td.num_iid},
+					#{td.item_num},
+					#{td.item_title},
+					#{td.create_time},
+					#{td.income_rate},
+					#{td.seller_nick},
+					#{td.seller_shop_title},
+					#{td.pub_share_pre_fee},
+					#{td.total_commission_rate},
+					#{td.price},
+					#{td.tk_status} ,
+					#{td.alipay_total_price},
+					#{td.commission_rate},
+					#{td.trade_parent_id},
+					#{td.trade_id},
+					#{td.subsidy_fee},
+					#{td.subsidy_rate},
+					#{td.total_commission_fee},
+					#{td.auction_category},
+					#{td.site_id},
+					#{td.adzone_id})
+		</foreach>
+ 	 </insert>
+    <insert id="replaceInPreOrder" parameterType="List">
+		insert into 
+		`fanli`.`almm_pre_order`
+			(auctionId,auctionNum,auctionTitle,createTime,discountAndSubsidyToString,earningTime,
+			     exNickName,exShopTitle,feeString,finalDiscountToString,payPrice,payStatus,realPayFee,realPayFeeString,
+			     shareRate,taobaoTradeParentId,terminalType,tkBizTag,tkPubShareFeeString,tkShareRate,
+			     tkShareRateToString,finalDiscountFeeString,category,siteid,adzoneid)
+		values
+		<foreach collection="data" item="td" index="index" separator=",">
+					(#{td.auctionId},
+					#{td.auctionNum},
+					#{td.auctionTitle},
+					#{td.createTime},
+					#{td.discountAndSubsidyToString},
+					#{td.earningTime},
+					#{td.exNickName},
+					#{td.exShopTitle},
+					#{td.feeString},
+					#{td.finalDiscountToString},
+					#{td.payPrice},
+					case #{td.payStatus} when '订单付款' then 12  when '订单结算' then 3  when '订单失效' then 13 else #{td.payStatus} end ,
+					#{td.realPayFee},
+					#{td.realPayFeeString},
+					#{td.shareRate},
+					#{td.taobaoTradeParentId},
+					#{td.terminalType},
+					case #{td.tkBizTag} when '淘宝' then 1  when '天猫' then 2  when '聚划算' then 3 when '天猫国际' then 4 else 0 end ,
+					#{td.tkPubShareFeeString},
+					#{td.tkShareRate},
+					#{td.tkShareRateToString},
+					#{td.finalDiscountFeeString},
+					#{td.category},
+					#{td.siteid},
+					#{td.adzoneid})
+		</foreach>
+ 	 </insert>
+    <insert id="insertInOrders" parameterType="List">
+		insert into 
+		`fanli`.`almm_order`
+			(auctionId,auctionNum,auctionTitle,createTime,discountAndSubsidyToString,earningTime,
+			     exNickName,exShopTitle,feeString,finalDiscountToString,payPrice,payStatus,realPayFee,realPayFeeString,
+			     shareRate,taobaoTradeParentId,terminalType,tkBizTag,tkPubShareFeeString,tkShareRate,
+			     tkShareRateToString,finalDiscountFeeString,category,siteid,adzoneid,order_item_id)
+		values
+		<foreach collection="data" item="td" index="index" separator=",">
+					(#{td.auctionId},
+					#{td.auctionNum},
+					#{td.auctionTitle},
+					#{td.createTime},
+					#{td.discountAndSubsidyToString},
+					#{td.earningTime},
+					#{td.exNickName},
+					#{td.exShopTitle},
+					#{td.feeString},
+					#{td.finalDiscountToString},
+					#{td.payPrice},
+					#{td.payStatus},
+					#{td.realPayFee},
+					#{td.realPayFeeString},
+					#{td.shareRate},
+					#{td.taobaoTradeParentId},
+					#{td.terminalType},
+					#{td.tkBizTag},
+					#{td.tkPubShareFeeString},
+					#{td.tkShareRate},
+					#{td.tkShareRateToString},
+					#{td.finalDiscountFeeString},
+					#{td.category},
+					#{td.siteid},
+					#{td.adzoneid},
+					#{td.id})
+		</foreach>
+ 	 </insert>
+    <insert id="createToken" parameterType="Map">
+        INSERT INTO `fanli`.`xcx_token` (openid,session_key,token,create_date)  
+        VALUES
+         (#{openid},#{session_key},#{token},DATE_FORMAT(now(),'%Y-%m-%d'))
+ 	 </insert>
+    <select id="getIncrementOrders" resultType="Map" >
+		select a.* from `fanli`.`almm_pre_order` a
+			LEFT JOIN (select * from `fanli`.`almm_order` where createTime &gt; date_add(now(), interval -2 month))  b
+			 on    a.taobaoTradeParentId = b.taobaoTradeParentId  
+			where b.taobaoTradeParentId is  null     
+    </select>
+    <delete id="truncatePreOrder" >
+      TRUNCATE `fanli`.`almm_pre_order`
+    </delete>
+    <select id="incrementUserOrder" resultType="Map" parameterType="Map">
+      select taobaoTradeParentId as order_id ,user_id from `fanli`.`almm_pre_order` a
+		LEFT JOIN  `fanli`.`almm_adzone` b on a.adzoneid = b.adzone_id
+		 where user_id is not null
+    </select>
+    <select id="getAllUsefulAlmmUser" resultType="Map" parameterType="Map">
+      select * from `fanli`.`almm_user` where `status`  = '2'
+    </select>
+    <select id="QueryAlmmCookieByUser" resultType="Map" parameterType="Map">
+          select login_cookie,status from `fanli`.`almm_user` c  
+          	LEFT JOIN `fanli`.`almm_site` a on  c.memberid = a.member_id
+			LEFT JOIN `fanli`.`almm_adzone` b on a.site_id = b.site_id 
+			where `status`  = '2' 
+		<if test="user_id != null" >
+		      AND 	b.user_id = #{user_id}
+		 </if>
+		  limit 0,1
+    </select>
+     <select id="getIdentCodeByKey" resultType="Map" parameterType="com.sc.data.scoupon.model.IdentCode">
+		SELECT
+			tel,
+			act_day,
+			active,
+			ident_code
+		FROM
+			`fanli`.`ident_code_tb`
+		WHERE ident_code = #{identCode}
+		 <if test="tel != null" >
+		       	AND	tel = #{tel}
+		 </if>
+		  <if test="day != null" >
+		       AND act_day = #{day}
+		 </if>
+		  <if test="active != null" >
+		       	AND active = #{active}
+		 </if>
+ 	 </select>
+ 	  <insert id="insertIdentCode" parameterType="com.sc.data.scoupon.model.IdentCode">
+		insert into `fanli`.`ident_code_tb`
+			(tel,act_day,active,ident_code)
+		values
+		(#{tel},#{day},#{active},#{identCode})
+		
+ 	 </insert>
+ 	  
+ 	  <insert id="insertUser" parameterType="com.sc.data.scoupon.model.User">
+		insert into `fanli`.`user_info`
+			(user_id,user_tel,password,wx_id,user_pic,user_nick,create_time)
+		values
+		(#{user_id},#{user_tel},#{password},#{wx_id},#{user_pic},#{user_nick},now())
+ 	 </insert>
+      <insert id="insertWxUser" parameterType="Map">
+		insert into `fanli`.`user_info`
+			(user_id,user_tel,create_time)
+		values
+		(#{user_id},#{user_tel},now())
+ 	 </insert>
+ 	 <select id="selectUser" resultType="Map" parameterType="com.sc.data.scoupon.model.User">
+		SELECT
+			user_id,tb_uid,wx_id,password,user_tel,create_time,user_pic,user_nick,ad_permission
+		FROM
+			`fanli`.`user_info`
+		WHERE 1=1
+		  <if test="user_id != null" >
+		       AND user_id = #{user_id}
+		 </if>
+		  <if test="password != null" >
+		       AND password = #{password}
+		 </if>
+		  <if test="user_tel != null" >
+		       	AND user_tel = #{user_tel}
+		 </if>
+		  <if test="create_time != null" >
+		       	AND create_time = #{create_time}
+		 </if>
+		  <if test="wx_id != null" >
+		       	AND wx_id = #{wx_id}
+		 </if>
+		  <if test="tb_uid != null" >
+		       	AND tb_uid = #{tb_uid}
+		 </if>
+		  <if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	 <select id="selectAdminUser" resultType="Map" parameterType="com.sc.data.scoupon.model.User">
+		SELECT
+			A_ID,Admin_name,Admin_pwd,Admin_power,Admin_Tel,Admin_Ctime
+		FROM
+			`fanli`.`admin_user`
+		WHERE 1=1
+		  <if test="user_id != null" >
+		       AND A_ID = #{user_id}
+		 </if>
+		  <if test="password != null" >
+		       AND Admin_pwd = #{password}
+		 </if>
+		  <if test="user_tel != null" >
+		       	AND Admin_Tel = #{user_tel}
+		 </if>
+		  <if test="create_time != null" >
+		       	AND Admin_Ctime = #{create_time}
+		 </if>
+		 <if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	
+ 	 <insert id="insertInUserOrder" parameterType="List">
+		insert into `fanli`.`user_order_tb`
+			(user_id,order_id,time)
+		values
+		<foreach collection="data" item="td" index="index" separator=",">
+			(#{td.user_id},#{td.order_id},now())
+		</foreach>
+ 	 </insert>
+ 	 <insert id="insertInUserOrderByAdzoneId" parameterType="Map">
+		replace into `fanli`.`user_order_tb`
+			(user_id,order_id,time)
+		values
+			((select user_id from almm_adzone where adzone_id = #{adzone_id}) ,#{order_id},now())
+ 	 </insert>
+ 	 <select  id="selectUserOrderId" resultType="String" parameterType="Map">
+		select order_id from `fanli`.`user_order_tb`
+		where user_id = ${user_id}
+		<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	 <select id="getUserOrders" resultType="Map" parameterType="Map">
+ 	     SELECT user_id,createTime,earningTime,concat(taobaoTradeParentId,'') taobaoTradeParentId,exShopTitle,payStatus,
+			auctionTitle,auctionNum,totalAlipayFeeString,feeString,realPayFeeString,
+			finalfee,tkPubShareFeeString,tb_service_fee,service_fee,tax_fee,share_fee
+			from `fanli`.`user_order_tb` a 
+			LEFT JOIN `fanli`.`almm_order` b on a.order_id = b.taobaoTradeParentId and user_id = ${user_id}
+			where  payStatus in ('3','12','13' ) 
+			<if test="startDate != null and endDate != null" >
+			 	<if test='payStatus=="3"'>
+                   and ( earningTime &gt;= '${startDate}'  and earningTime &lt;= '${endDate}' ) 
+                </if>
+                <if test='payStatus!="3"'>
+                   and ( createTime &gt;= '${startDate}' and createTime &lt;= '${endDate}' ) 
+                </if>
+			</if>
+			<if test="params != null" >
+				 and( auctionTitle like '%${params}%'
+				 or taobaoTradeParentId = '${params}'
+				 or exShopTitle like '%${params}%')
+			</if>
+			<if test="payStatus != null" >
+				 and payStatus = '${payStatus}'
+			</if>
+			<if test='payStatus=="3"'>
+			  	order by   earningTime desc
+			</if>
+			<if test='payStatus!="3"'>
+			   	order by  createTime desc
+			</if>  
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	 <update id="updatePW" parameterType="com.sc.data.scoupon.model.User">
+ 	     update `fanli`.`user_info` set 
+ 	     password  = #{password}
+ 	     where  user_tel = '${user_tel}'
+ 	 </update>
+ 	 <insert id="alipayInfoSave" parameterType="com.sc.data.scoupon.model.AlipayInfo">
+		replace into `fanli`.`alipay_info`
+			(user_id,alipay_user_name,real_name,save_time,run_status)
+		values
+			(#{user_id},#{alipay_user_name},#{real_name},now(),#{run_status})
+ 	 </insert>
+ 	  <insert id="payTastSave" parameterType="com.sc.data.scoupon.model.PayTask">
+		insert into `fanli`.`finance_trade`
+			(user_id,type,money,time,note)
+		values
+			(#{user_id},#{type},#{money},now(),#{note})
+ 	 </insert>
+ 	  <insert id="initialAmt" parameterType="String">
+		insert into `fanli`.`user_amt_tb`
+			(user_id,time)
+		values
+			(#{user_id},now())
+ 	 </insert>
+ 	  <select id="getAmtInfo" resultType="Map" parameterType="String">
+		SELECT
+			user_id,total_amt,balance,draw_money,time
+		FROM
+			`fanli`.`user_amt_tb`
+		WHERE 1=1
+		 <if test="user_id != null" >
+		       	AND	user_id = '${user_id}'
+		 </if>
+ 	 </select>
+ 	 <select id="getTaskAmtInfo" resultType="Map" parameterType="String">
+		SELECT
+			if(SUM(money) is null,0.0,SUM(money)) as total_task_money
+		FROM
+			`fanli`.`finance_trade`
+		WHERE type = '3'
+		 <if test="user_id != null" >
+		       	AND	user_id = '${user_id}'
+		 </if>
+ 	 </select>
+ 	 <select id="getAlipayInfo" resultType="Map" parameterType="String">
+		SELECT
+			user_id,alipay_user_name,real_name,save_time,run_status
+		FROM
+			`fanli`.`alipay_info`
+		WHERE 1=1
+		 <if test="user_id != null" >
+		       	AND	user_id = '${user_id}'
+		 </if>
+ 	 </select>
+ 	 <select id="getUnused" resultType="Map" parameterType="Map">
+		select if(SUM(feeString) is null,0.0,SUM(feeString)) as   unused  
+		from `fanli`.`user_order_tb` a
+			LEFT JOIN
+			`fanli`.`almm_order` b on a.order_id = b.taobaoTradeParentId
+			where  b.earningTime &gt; ${downLimit} 
+			and a.user_id = ${user_id} and payStatus in ('3','12') 
+ 	 </select>
+ 	 <select id="unusedDetail" resultType="Map" parameterType="Map">
+		select  
+			user_id,createTime,earningTime,concat(taobaoTradeParentId,'') taobaoTradeParentId,exShopTitle,payStatus,
+			auctionTitle,auctionNum,totalAlipayFeeString,feeString as unused,realPayFeeString,
+			finalfee,tkPubShareFeeString,tb_service_fee,service_fee,tax_fee,share_fee 
+		from `fanli`.`user_order_tb` a
+			LEFT JOIN
+			`fanli`.`almm_order` b on a.order_id = b.taobaoTradeParentId
+			where  b.earningTime &gt; ${downLimit} 
+			and a.user_id = ${user_id} and payStatus in ('3','12') 
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	 <select id="drawDetail" resultType="Map" parameterType="Map">
+		select a.* ,b.user_nick,d.alipay_user_name,d.real_name
+		from `fanli`.`finance_trade`  a
+		left join  `fanli`.`user_info` b on a.user_id = b.user_id
+		LEFT join `fanli`.`alipay_info` d
+			on a.user_id = d.user_id
+		 where 1=1 
+		 	<if test="user_id != null" >
+			and user_id = ${user_id}
+			</if>
+			<if test="task_id != null" >
+			and id = ${task_id}
+			</if>
+		 <if test="type != null" >
+			 and type = #{type}
+		 </if>
+		 order by a.time desc
+		 <if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	 <select id="getTradeById" resultType="Map" parameterType="Map">
+		select * 
+		from `fanli`.`finance_trade`  
+		 where id = ${task_id}
+ 	 </select>
+  	 <update id="updateAlmmUserStatus" parameterType="Map">
+ 	     update `fanli`.`almm_user` set 
+ 	     status  = #{status}
+ 	     <if test="draw_money != null" >
+			, draw_money = #{draw_money}
+			</if>
+ 	     where  user_id = '${user_id}'
+ 	 </update>
+  	 <update id="updateBalance" parameterType="Map">
+ 	     update `fanli`.`user_amt_tb` set 
+ 	     balance  = #{balance}
+ 	     <if test="draw_money != null" >
+			, draw_money = #{draw_money}
+			</if>
+ 	     where  user_id = '${user_id}'
+ 	 </update>
+  	 <update id="updateDrawMoney" parameterType="Map">
+ 	     update `fanli`.`user_amt_tb` set 
+ 	     draw_money  = #{draw_money}
+ 	     <if test="balance != null" >
+			, balance = ${balance}
+			</if>
+ 	     where  user_id = '${user_id}'
+ 	 </update>
+  	 <update id="uploadUserPic" parameterType="com.sc.data.scoupon.model.User">
+ 	     update `fanli`.`user_info` set 
+ 	     user_pic  = #{user_pic}
+ 	     where  user_id = '${user_id}'
+ 	 </update>
+  	 <update id="upUsernick" parameterType="com.sc.data.scoupon.model.User">
+ 	     update `fanli`.`user_info` set 
+ 	     user_nick  = #{user_nick}
+ 	     where  user_id = '${user_id}'
+ 	 </update>
+  	 <update id="upTradeType" parameterType="com.sc.data.scoupon.model.PayTask">
+ 	     UPDATE `fanli`.`finance_trade`  
+ 	     <set>
+ 	     	<if test="true" >
+			 time = now(),
+			</if>
+ 	     	<if test="type != null" >
+			 type=#{type},
+			</if>
+			<if test="reject != null" >
+			 reject = #{reject},
+			</if>
+		 </set>
+			 where  id = #{task_id}
+ 	 </update>
+ 	  <select id="userList" resultType="Map" parameterType="com.sc.data.scoupon.model.User">
+		SELECT 
+			z.user_id,z.create_time,user_pic,user_nick,
+			if(balance is null,0.0,balance) as balance ,
+			if(total_amt is null,0.0,total_amt) as total_amt ,
+			if(draw_money is null,0.0,draw_money) as draw_money ,
+			if(SUM(w.money) is null,0.0,SUM(w.money)) as   drawing
+			 from 
+			`fanli`.`user_info` z
+			left JOIN
+			`fanli`.`user_amt_tb` u on u.user_id=z.user_id
+		  left JOIN
+			(select money,user_id from `fanli`.`finance_trade` where type = '3'  ) w on z.user_id=w.user_id   
+			where 1=1
+			<if test="user_name != null" >
+			 and z.user_tel = #{user_name}
+			</if>
+			GROUP BY 
+			z.user_id,user_tel,z.create_time,user_pic,user_nick,
+			balance,total_amt,draw_money
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="tradeList" resultType="Map" parameterType="Map">
+		select a.*,b.user_id,c.*,d.real_name,d.alipay_user_name from 
+			`fanli`.`finance_trade` a
+			LEFT join `fanli`.`user_info` b
+			on a.user_id = b.user_id
+			LEFT join `fanli`.`alipay_info` d
+			on a.user_id = d.user_id
+			LEFT join `fanli`.`user_amt_tb` c
+			on a.user_id = c.user_id
+			 where  1=1
+			<if test="user_id != null" >
+			 and b.user_id = #{user_id}
+			</if>
+			<if test="time != null" >
+			 and a.time like '%${time}%'
+			</if>
+			<if test="type != null" >
+			 and a.type = #{type}
+			</if>
+			order by b.user_id,a.time desc
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="incomeDetail" resultType="Map" parameterType="Map">
+		select a.user_tel , a.user_nick,auctionTitle,auctionUrl,createTime,earningTime,
+			taobaoTradeParentId as order_id,
+			if(feeString is null,0.0,feeString) as   feeString,
+			if(finalfee is null,0.0,finalfee) as   finalfee ,
+			if(tb_service_fee is null,0.0,tb_service_fee) as   tb_service_fee 
+			,if(service_fee is null,0.0,service_fee) as   service_fee ,
+			if(tax_fee is null,0.0,tax_fee) as   tax_fee ,
+			if(share_fee is null,0.0,share_fee) as   share_fee,
+		    if(channel_yugu_user_fee is null,0.0,channel_yugu_user_fee) as   channel_yugu_user_fee,
+		    exShopTitle ,payStatus
+			 from `fanli`.`user_info` a
+			left JOIN
+			`fanli`.`user_order_tb` x on a.user_id=x.user_id
+			left join `fanli`.`almm_order` b on x.order_id = b.taobaoTradeParentId
+			 WHERE  a.user_id=#{user_id}
+			 <if test=" lm != null" >
+				and createTime like '${lm}%'
+			</if>
+			and payStatus in (3,4,12)
+			and feeString is not null
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="getMembers" resultType="String" parameterType="Map">
+		select memberid from almm_user ORDER BY memberid
+ 	 </select>
+ 	  <select id="selectUserCount" resultType="Integer" parameterType="Map">
+		select count(wx_id) from `fanli`.`user_info` 
+		<where>
+		     <if test="wx_id != null" >
+		       	wx_id = #{wx_id}
+		 	 </if>
+		      <if test="tb_uid != null" >
+		       	AND tb_uid = #{tb_uid}
+		 		</if>
+		</where>
+ 	 </select>
+ 	  <select id="selectUserByOpenid" resultType="Map" parameterType="String">
+		select * from `fanli`.`user_info` 
+		where wx_id = #{openid}
+ 	 </select>
+ 	 <select id="selectIps" resultType="Map" >
+		select * from `fanli`.`ip_port_table` 
+ 	 </select>
+ 	  <update id="updateUserById" parameterType="Map">
+ 	     UPDATE `fanli`.`user_info`   
+ 	     <set>
+ 	         <if test="wx_id != null" >
+		       	wx_id = #{wx_id},
+		 	 </if>
+ 	         <if test="user_pic != null" >
+		       	user_pic = #{user_pic},
+		 	 </if>
+ 	         <if test="user_tel != null" >
+		       	user_tel = #{user_tel},
+		 	 </if>
+ 	         <if test="password != null" >
+		       	password = #{password},
+		 	 </if>
+ 	     </set>
+ 	     where user_id = #{user_id}
+ 	 </update>
+ 	 <update id="AddAmtInfo" parameterType="Map">
+ 	     UPDATE `fanli`.`user_amt_tb`  
+ 	     <set>
+ 	     	<if test="balance != null" >
+			 balance= balance + ${balance},
+			</if>
+			<if test="total_amt != null" >
+			total_amt = total_amt + ${total_amt},
+			</if>
+			<if test="draw_money != null" >
+			draw_money = draw_money + ${draw_money},
+			</if>
+		 </set>
+			 where  user_id = ${user_id}
+ 	 </update>
+ 	 <update id="reBelongOrderToUser" parameterType="Map">
+ 	     UPDATE `fanli`.`user_order_tb`  
+			set	 user_id= ${tel_user_id}
+		 where  user_id = ${wx_user_id}
+ 	 </update>
+ 	 <update id="resetSender" parameterType="Map">
+ 	     UPDATE `fanli`.`gzh_hongbao`  
+ 	     SET sender_userid = ${tel_user_id} 
+ 	     WHERE sender_userid = ${wx_user_id}
+ 	 </update>
+ 	 <update id="resetReceiver" parameterType="Map">
+ 	     UPDATE `fanli`.`gzh_hongbao`  
+ 	     SET receiver_userid = ${tel_user_id} 
+ 	     WHERE receiver_userid = ${wx_user_id}
+ 	 </update>
+ 	 <insert id="deleteUserById" parameterType="Map">
+ 	     delete from `fanli`.`user_info`   where user_id = ${user_id}
+ 	 </insert>
+ 	  <select id="tradeIdDetail" resultType="Map" parameterType="Map">
+ 	     SELECT user_id,createTime,earningTime,concat(taobaoTradeParentId,'') taobaoTradeParentId,exShopTitle,payStatus,
+			auctionTitle,auctionNum,totalAlipayFeeString,feeString,realPayFeeString,
+			finalfee,tkPubShareFeeString,tb_service_fee,service_fee,tax_fee,share_fee
+			from `fanli`.`user_order_tb` a 
+			LEFT JOIN `fanli`.`almm_order` b on a.order_id = b.taobaoTradeParentId 
+			where  payStatus in ('4','3','12','13') and a.trade_id = 808
+			order by createTime desc
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <insert id="saveAdAct" parameterType="Map">
+		insert into `fanli`.`ad_tb`
+			(share_id,user_id,time,unuse_time
+			  <if test="item_id != null" >
+		       	,item_id
+		 	 </if>
+		 	   <if test="title != null" >
+		       	,item_name
+		 	 </if>
+		 	   <if test="qr_url != null" >
+		       	,qr_url
+		 	 </if>
+			)
+		values
+			(#{share_id},#{user_id},#{time},#{unuse_time}
+			 <if test="item_id != null" >
+		       	,#{item_id}
+		 	 </if>
+		 	   <if test="title != null" >
+		       ,#{title}
+		 	 </if>
+		 	   <if test="qr_url != null" >
+		       ,#{qr_url}
+		 	 </if>
+			)
+ 	 </insert>
+ 	  <update id="updateAdAct" parameterType="Map">
+ 	     update `fanli`.`ad_tb` set 
+ 	     qr_url  = #{qr_url}
+ 	     where  share_id = '${share_id}'
+ 	 </update>
+ 	  <select id="selectShareActs" resultType="Map" parameterType="Map">
+ 	     SELECT *
+			from `fanli`.`ad_tb` 
+			<where>
+		     <if test="user_id != null" >
+		       	user_id = #{user_id}
+		 	 </if>
+		     <if test="share_id != null" >
+		       	AND	share_id = #{share_id}
+		 	 </if>
+		     <if test="item_id != null" >
+		       	AND	item_id = #{item_id}
+		 	 </if>
+		     <if test="time != null" >
+		       	AND	unuse_time &gt; #{time}
+		 	 </if>
+		</where>
+		<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	 <insert id="saveRelation" parameterType="Map">
+ 	     INSERT INTO `fanli`.`user_relation` (
+			user_id,
+			fuid,
+			ctime,
+			lose_time
+		)
+		VALUES
+			(
+				(select user_id from `fanli`.`user_info` where wx_id = #{openid}),
+				#{fuid},
+				NOW(),
+				date_add(now(), INTERVAL 2 YEAR)
+			)
+ 	 </insert>
+ 	  <select id="getshareRelationByUserId" resultType="Map" parameterType="Map">
+ 	   	   SELECT
+			a.user_id,
+			a.fuid,
+			a.ctime,
+			a.lose_time,
+			if(b.user_nick is null or b.user_nick = '',CONCAT('用户',a.user_id),CONCAT(SUBSTR(b.user_nick , 1 , 1),'*****')) user_nick
+		FROM
+			`fanli`.`user_relation` a
+		LEFT JOIN `fanli`.`user_info` b ON a.user_id = b.user_id
+		WHERE
+			a.fuid =  #{user_id}
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="getshareOrdersByUserId" resultType="Map" parameterType="Map">
+		 SELECT
+			b.user_id buy_user_id,
+			a.fuid,
+			CONCAT(SUBSTR(c.auctionTitle , 1 , 1),'***************') auctionTitle,
+			c.tkPubShareFeeString*0.2 as tkPubShareFeeString,
+			c.*
+		FROM
+			`fanli`.`user_relation` a
+		LEFT JOIN  `fanli`.`user_order_tb` b ON  b.user_id = a.user_id
+		INNER JOIN `fanli`.`almm_order` c ON b.order_id = c.taobaoTradeParentId
+		WHERE
+			a.fuid = #{user_id} and a.user_id = #{child_id}
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="getshareItemsByUserId" resultType="Map" parameterType="Map">
+		SELECT
+			a.user_id,
+			a.item_id,
+			a.item_name,
+			CONCAT(
+				'https://item.taobao.com/item.htm?id=',
+				item_id
+			) item_url,
+		count(b.id) click_count
+		FROM
+			`fanli`.`ad_tb` a
+		LEFT JOIN `fanli`.`user_share_log` b ON a.user_id = b.share_user_id and a.item_id = b.itemid
+		WHERE
+			a.user_id =  #{user_id}
+		GROUP BY a.user_id,a.item_id,a.item_name
+		<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="countOfAdzoneWhiteList" resultType="Integer" parameterType="String">
+		select count(1) from `fanli`.`adzone_white_list` where user_id = #{user_id}
+ 	 </select>
+ 	  <select id="countOfAdzoneId" resultType="Integer" parameterType="Map">
+		select count(1) from `fanli`.`almm_adzone` 
+		where 1=1
+		     <if test="user_id != null" >
+		        AND user_id = #{user_id}
+		 	 </if>
+		     <if test="site_id != null" >
+		       	AND	site_id = #{site_id}
+		 	 </if>
+ 	 </select>
+ 	  <select id="selectUsefulSiteId" resultType="Map" >
+		select site_id,member_id  from (
+			select concat(a.site_id,'') as site_id,a.member_id,a.is_full,if (b.ad_count is null ,0,b.ad_count) ad_count from 
+				`fanli`.`almm_site` a
+			LEFT JOIN  
+			(	
+				select site_id,count(adzone_id) ad_count  from almm_adzone GROUP BY site_id 
+			) b 
+			on a.site_id = b.site_id
+			) c
+ 			where c.is_full = '0'  ORDER BY ad_count  limit 0,1		
+ 	 </select>
+ 	  <select id="getCookieInfo" resultType="Map" parameterType="Map">
+		select login_cookie as cookie 
+			from `fanli`.`almm_user` 
+		where memberid = #{member_id} and  `status` = '2'
+ 	 </select>
+ 	  <select id="selectNoAdzoneUser" resultType="Map" >
+		select user_id from `fanli`.`user_info` where user_id not in (select user_id from `fanli`.`almm_adzone`)
+ 	 </select>
+ 	  <select id="getAdzoneInfo" resultType="Map" parameterType="Map">
+		select * from `fanli`.`almm_adzone` 
+			<where>
+		     <if test="user_id != null" >
+		       	user_id = #{user_id}
+		 	 </if>
+		     <if test="site_id != null" >
+		       	AND	site_id = #{site_id}
+		 	 </if>
+		 	</where>
+		 	<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
+ 	 </select>
+ 	  <select id="siteLessMemberCookieInfo" resultType="Map" >
+ 	      SELECT
+				memberid as member_id,
+				IF (site_count IS NULL,0,site_count) AS site_count,
+				login_cookie as cookie
+			FROM
+				`fanli`.`almm_user` b
+			LEFT JOIN (
+				SELECT
+					member_id,
+					count(site_id) site_count
+				FROM
+					`fanli`.`almm_site`
+				GROUP BY
+					member_id
+			) a ON a.member_id = b.memberid
+			where  b.`status` = '2'
+			ORDER BY
+				site_count ASC
+			LIMIT 1
+ 	 </select>
+ 	  <insert id="insertTbUser" parameterType="Map">
+		insert into `fanli`.`user_info`
+			(user_id,tb_uid,user_nick	,create_time)
+		values
+		(#{user_id},#{tb_uid},#{taobao_user_nick},#{create_time})
+ 	 </insert>
+ 	  <insert id="insertSite" parameterType="Map">
+		insert into `fanli`.`almm_site`
+			(site_id,member_id)
+		values
+		(#{site_id},#{member_id})
+ 	 </insert>
+ 	  <insert id="insertAdzone" parameterType="Map">
+		insert into `fanli`.`almm_adzone`
+			(adzone_id,site_id,pid)
+		values
+		(#{adzone_id},#{site_id},#{pid})
+ 	 </insert>
+ 	  <update id="updateSite" parameterType="Map">
+ 	     UPDATE `fanli`.`almm_site`  
+			 SET is_full=#{is_full}
+			 where  site_id = #{site_id}
+ 	 </update>
+ 	 <select id="getAdzoneInfoByUserId" parameterType="String" resultType="Map" >
+ 	     SELECT adzone_id,site_id,pid from almm_adzone 
+		      where	user_id = #{user_id}
+ 	 </select>
+ 	 <select id="getChannelInfo" parameterType="Map" resultType="Map" >
+ 	     select * from `fanli`.`channel_info` 
+			<where>
+		     <if test="channel_id != null" >
+		       	channel_id = #{channel_id}
+		 	 </if>
+		 	</where>
+ 	 </select>
+ 	 <select id="batchTask" parameterType="Map" resultType="Map" >
+	SELECT
+  z.user_id                          AS user_id,
+  `a`.sumorder,
+  `hongbao`.*,
+  `user_amt_tb`.*,
+ #z.id    AS task_id,
+ z.money,
+ #z.type,
+ (IF(sumorder IS NULL, 0, sumorder) + IF(hongbao IS NULL, 0, hongbao)-total_amt) AS valid_money1,
+  balance+draw_money+money-total_amt AS valid_money2
+FROM (SELECT
+        SUM(money)                          AS money,
+        user_id
+      FROM `finance_trade`
+      WHERE TYPE = '3'
+      GROUP BY user_id) z
+  LEFT JOIN (SELECT
+               SUM(`tb1`.`finalfee`)                  sumorder,
+               `tb2`.`user_id`
+             FROM (SELECT
+                     `taobaoTradeParentId`,
+                     `finalfee`
+                   FROM `fanli`.`almm_order`
+                   WHERE   `earningTime` &lt; ${earningTime} and  `earningTime` IS NOT NULL) AS `tb1`
+               JOIN `user_order_tb` AS `tb2`
+                 ON `tb1`.`taobaoTradeParentId` = `tb2`.`order_id`
+             GROUP BY `tb2`.`user_id`) AS a
+    ON `a`.`user_id` = z.user_id
+  LEFT JOIN `user_amt_tb`
+    ON `z`.`user_id` = `user_amt_tb`.`user_id`
+  LEFT JOIN (SELECT
+               `user_id`,
+               SUM(`money`)                           hongbao
+             FROM `finance_trade`
+             WHERE `type` IN('6','2')
+             GROUP BY `user_id`) AS `hongbao`
+    ON `z`.`user_id` = `hongbao`.`user_id`
+	 </select>
+	 <update id="upCookieStatu" parameterType="Map">
+ 	     update `fanli`.`almm_user` set 
+ 	     status  = #{status}
+ 	     where  username = '${username}'
+ 	 </update>
+	 <update id="upOrderStat" parameterType="Map">
+ 	     UPDATE `fanli`.`almm_order` set payStatus = #{payStatus} 
+		       	, earningTime = (select earningTime from `fanli`.`almm_pre_order` where taobaoTradeParentId = #{taobaoTradeParentId} limit 1)
+ 	     	<if test="tb_service_fee != null" >
+		       	, tb_service_fee = #{tb_service_fee} 
+		 	</if>
+ 	     	<if test="service_fee != null" >
+		       	, service_fee = #{service_fee} 
+		 	</if>
+ 	     	<if test="finalfee != null" >
+		       	, finalfee = #{finalfee} 
+		 	</if>
+ 	     where taobaoTradeParentId=#{taobaoTradeParentId}
+ 	 </update>
+	 <update id="bindAdzoneId" parameterType="Map">
+		UPDATE `fanli`.`almm_adzone` set user_id = #{user_id}  where user_id = '0' order by id asc limit 1
+ 	 </update>
+	 <select id="getNoCookieUsers"  parameterType="Map" resultType="Map">
+	     select username FROM `fanli`.`almm_user` where `STATUS` = 1
+	 </select>
+	 <select id="getStatDifOrders"  parameterType="Map" resultType="Map">
+	     select taobaoTradeParentId ,order_item_id, payStatus from (
+				select a.auctionTitle,a.taobaoTradeParentId,a.payStatus,b.payStatus payStatusb,b.order_item_id from `fanli`.`almm_pre_order` a
+					LEFT JOIN (select * from `fanli`.`almm_order` where createTime &gt; date_add(now(), interval -2 month)) b
+					 on   a.taobaoTradeParentId = b.taobaoTradeParentId   
+					where b.payStatus&lt;&gt;a.payStatus 
+				) c
+		group by taobaoTradeParentId ,order_item_id, payStatus
+ 	 </select>
+	 <select id="getTokenInfo" resultType="Map" parameterType="Map">
+		select * from `fanli`.`xcx_token` 
+			where create_date =DATE_FORMAT(now(),'%Y-%m-%d') 
+		     <if test="token != null" >
+		       	AND token = #{token} 
+		 	 </if>
+		     <if test="openid != null" >
+		       	AND	openid = #{openid} 
+		 	 </if>
+ 	 </select>
+	 <select id="getUserInfoByToken" resultType="Map" parameterType="String">
+	     	select * from `fanli`.`xcx_token` a
+				LEFT JOIN
+				`fanli`.`user_info` b ON a.openid=b.wx_id
+				where a.create_date =DATE_FORMAT(now(),'%Y-%m-%d') and a.token=#{token} 
+ 	 </select>
+	 <select id="getOrderDetail" resultType="Map" parameterType="Map">
+	     	select taobaoTradeParentId,payStatus,feeString,adzoneid
+	     	 FROM `fanli`.`almm_order` 
+	     	 where taobaoTradeParentId = #{taobaoTradeParentId} LIMIT 1
+ 	 </select>
+ 	 <update id="upUserPicAndNickByToken" parameterType="Map">
+ 	     UPDATE `fanli`.`user_info` 
+ 	     SET user_pic=#{user_pic},user_nick=#{user_nick} 
+ 	     WHERE wx_id = (
+			select openid from `fanli`.`xcx_token` 
+			where create_date =DATE_FORMAT(now(),'%Y-%m-%d') and token=#{token} 
+		)
+ 	 </update>
+ 	 <update id="AppendOrderAmt" parameterType="Map">
+ 	     UPDATE `fanli`.`user_amt_tb` 
+ 	     	SET balance=balance+${finalfee},total_amt = total_amt + ${finalfee} 
+			WHERE user_id = (SELECT user_id FROM `fanli`.`almm_adzone` WHERE adzone_id = '${adzoneid}')
+ 	 </update>
+ 	 <select id="getStaticByKey" resultType="Map" parameterType="String">
+		SELECT value as flag from `fanli`.`static_val` where id = #{desShow_key}
+ 	 </select>
+</mapper>

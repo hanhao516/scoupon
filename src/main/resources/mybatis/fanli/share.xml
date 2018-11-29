@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.data.scoupon.dao.ShareMappper">
+    <select id="queryFans" resultType="java.lang.Long" parameterType="Map">
+      SELECT COUNT(ur.buy_user_id) FROM  user_info ui LEFT JOIN user_relation ur ON ui.user_id = ur.share_user_id  WHERE user_id = #{user_id} GROUP BY ur.share_user_id
+    </select>
+    <select id="fansDetailed" resultType="Map" parameterType="Map">
+        SELECT ao.auctionTitle auctionTitle,
+        ao.exShopTitle exShopTitle,
+        ao.exNickName exNickName,
+        ao.channel_yugu_share_fee channel_yugu_share_fee,
+        ao.createTime createTime,
+        ao.payStatus payStatus,
+        ao.totalAlipayFeeString totalAlipayFeeString
+        FROM almm_order ao
+        RIGHT JOIN (SELECT
+        order_id,user_id
+        FROM user_order_tb
+        WHERE user_id = #{user_id}) uo
+        ON uo.order_id = ao.taobaoTradeParentId
+        WHERE ao.payStatus = 3  AND earningTime &gt; '2018-03-01'  AND earningTime &lt;'2018-03-23'
+    </select>
+    <select id="selectChildrenUser" resultType="com.sc.data.scoupon.model.User" parameterType="java.lang.String">
+       SELECT * FROM user_info  WHERE user_id=#{user_id}
+    </select>
+    <select id="monthEstimate" resultType="Map" parameterType="Map">
+        SELECT SUM(ao.channel_yugu_user_fee) money ,SUM(ao.channel_yugu_share_fee) shareMoney
+        FROM almm_order ao
+        RIGHT JOIN (SELECT
+        order_id,user_id
+        FROM user_order_tb
+        WHERE user_id = #{user_id}) uo
+        ON uo.order_id = ao.taobaoTradeParentId
+        WHERE ao.payStatus = 3  AND earningTime &gt; #{startTime} AND earningTime &lt; #{endTime} GROUP BY uo.user_id;
+    </select>
+
+    <select id="queryListFans" parameterType="Map" resultType="com.sc.data.scoupon.model.User">
+        SELECT
+        ur.buy_user_id user_id,
+        ur.relation_time,
+        ur.lose_relation_time
+        FROM user_info ui
+        LEFT JOIN user_relation ur
+        ON ui.user_id = ur.share_user_id
+        WHERE ui.user_id = #{user_id}
+        AND ur.lose_relation_time  &gt; #{endTime}
+        GROUP BY ur.buy_user_id
+    </select>
+
+</mapper>

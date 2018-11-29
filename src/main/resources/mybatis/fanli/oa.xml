@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sc.data.scoupon.dao.OaMapper">
+    <select id="QueryAlmmOrder" resultType="Map" parameterType="Map">
+      SELECT * FROM almm_order WHERE taobaoTradeParentId = #{taobaoTradeParentId}
+    </select>
+    <select id="QueryAlmmCookieByUser" resultType="Map" parameterType="Map">
+      SELECT username,login_cookie FROM `fanli`.`almm_user` WHERE username = #{username}
+    </select>
+</mapper>

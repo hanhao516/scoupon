@@ -1,0 +1,112 @@
+<html><head>
+		<meta charset="utf-8">
+		<script src="https://hm.baidu.com/hm.js?706c8cb7b2c834408ca891caf5149b4c"></script><script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+		<title></title>
+		<style>
+			body{margin:0 auto;width:290px;height:270px; padding:10px 20px;font-size:12px;font-family: Microsoft YaHei,\5FAE\8F6F\96C5\9ED1,tahoma,arial,simsun,\5B8B\4F53;color:#333;}
+			p{margin:0;padding:0;line-height:2em;}
+			.c9{color:#999}
+			.lh16{line-height: 16px;}
+			.ml15{margin-left:15px;}
+			.mt10{margin-top:10px;}
+			.mt15{margin-top:1px;}
+			.line{height: 1px;border: none;border-top: 1px dashed #aaa;}
+			.btn{display: inline-block;padding: 6px 12px;margin-bottom: 0;line-height: 1.42857143;text-align: center;white-space: nowrap;vertical-align: middle;cursor: pointer;border: 1px solid transparent;border-radius: 4px;background-color: #fff;border-color: #ccc;text-decoration: none;color: #333;}
+			.ques{color:#333;text-decoration: none;}
+			.zan{display:inline-block;margin-left:20px;height:20px;text-decoration: none;cursor: pointer;color: #333;}
+			.new_ver{display:none;margin-left:10px;width:64px;height:24px;line-height: 24px;font-size: 12px;color:#fff;/*background:#8ccc2f;*/text-decoration:none;text-align: center;background: #f00;}
+			.greya{color:#999;text-decoration: none;}
+			.greya:hover{color:#999;text-decoration: :none;}
+			.shuang11_logo{position: absolute;top: 32px;right: 0;}
+		</style>
+		<!-- taobao.com Baidu tongji analytics add date 2017-07-27-->
+		<script type="text/javascript">
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?706c8cb7b2c834408ca891caf5149b4c";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+	<script type="text/javascript" src="chrome-extension://aggiiclaiamajehmlfpkjmlbadmkledi/lib/popup.js" async=""></script><script type="text/javascript" src="chrome-extension://aggiiclaiamajehmlfpkjmlbadmkledi/lib/tat_popup.js" async=""></script></head>
+	<body>
+		<a class="greya" href="www.xiaoshuili.xyz:8080/scoupon" target="_blank"> 小水粒  </a> 
+		<hr class="line mt15">
+		<p class="new"><a class="ques" target="_blank" href="https://user.qzone.qq.com/2573460732/blog/1538317209">如何使用小水粒？</a></p>
+		<p class="new"><a class="ques" target="_blank" href="https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-14902741225.85.49349d61CjLPXA&amp;id=558899654683&amp;rn=2a0f81eaa56d5e1c0051ae78875f73c5&amp;abbucket=17">[新手引导]试用一下，插件-默认在左下角哦!</a></p>
+		<p class="new"><a target="_blank" style="color: #f00" class="ques" href="">Q1.双11常见问题答疑</a></p>
+		<p class="old" style="display: none;"><a class="ques" target="_blank" href="">电脑端插件使用教程</a></p>
+		<p class="new"><a class="ques" target="_blank" href="">Q2.购买多个宝贝，能放在购物车一起买吗？</a></p>
+		<p class="new"><a class="ques" target="_blank" href="">Q3.旧版7返利如何提现？</a></p>
+		
+		<p><a class="ques" target="_blank" href="www.xiaoshuili.xyz:8080/scoupon/question.html">&gt;&gt;&gt;更多问题</a></p>
+		<hr class="line mt15">
+		<div class="mt15">
+			<a class="btn new" id="searchOrder" href="www.xiaoshuili.xyz:8080/scoupon" target="_blank">查订单</a>
+			<a class="btn new" href="www.xiaoshuili.xyz:8080/scoupon" target="_blank">去提现</a>
+		</div>
+
+		<script type="text/javascript">
+		/**var jiathis_config={
+		    url:"http://7fanli.com/7dxfl.html?tracelog=plusshare",
+			summary:"最近发现个超好用的省钱工具，推荐给你。边逛淘宝边拿返利，比店铺的优惠更优惠呢~轻戳链接下载7返利",
+			pic:"http://ww2.sinaimg.cn/large/005Nvwwugw1ewcnibd3ucj30b406i3z6.jpg",
+			shortUrl:false,
+			hideMore:false
+		}
+		var vis="4.2.5";
+		var hr=window.location.href.split("=");
+		var nowvis=getQueryString('version').split('.');
+		var sum = '';
+		for (var i=0;i<nowvis.length;i++) {
+			sum+=nowvis[i];
+		}
+		console.log(sum)
+
+		if (sum < 425) {
+			closeNewVersion();
+		} else {
+			closeOldVersion();
+		}
+		
+		
+		
+		  //检查更新  2017/10/16 putuo
+		  //@return {[type]} [description]
+		 
+		function closeOldVersion() {
+			var olds = document.getElementsByClassName('old');
+			for (var i=0;i<olds.length;i++) {
+				olds[i].style.display = 'none';
+			}
+		}
+
+		function closeNewVersion() {
+			var news = document.getElementsByClassName('new');
+			for (var i=0;i<news.length;i++) {
+				news[i].style.display = 'none';
+			}
+		}
+		
+		
+		function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var result = window.location.search.substr(1).match(reg);
+            if (result != null) {
+                return decodeURIComponent(result[2]);
+            } else {
+                return null;
+            }
+        }
+
+		document.getElementById("setting_btn").setAttribute("href","http://7fanli.com/setting.html?v="+nowvis);
+		if(nowvis!=""){
+			document.getElementById("versionnow").innerText="Version "+nowvis;
+		}
+		*/
+
+</script>
+	
+
+</body></html>
