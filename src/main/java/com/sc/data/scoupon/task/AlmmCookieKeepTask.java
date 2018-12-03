@@ -87,14 +87,18 @@ public class AlmmCookieKeepTask {
 		//修改存量订单状态
 		List<Map<String, Object>> status_up_orders = f.getStatDifOrders();
 		//增量orders放入order表
-		if(status_up_orders.size()!=0){
+		if(status_up_orders!=null){
 			for (int i = 0; i < status_up_orders.size(); i++) {
 				Map<String, Object> difOrder = status_up_orders.get(i);
 				System.out.println(difOrder);
 				String payStatus  = difOrder.get("payStatus") + "";
 				//判断订单状态 为3的时候需要更新余额，并更新最终返利和服务费
 				if("3".equals(payStatus) ){
-					f.dealEndOverStatus(difOrder,payStatus);
+					try {
+						f.dealEndOverStatus(difOrder,payStatus);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}else{
 					//只更新状态
 					f.upOrderStat(difOrder);

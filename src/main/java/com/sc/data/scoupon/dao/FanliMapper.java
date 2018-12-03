@@ -177,4 +177,16 @@ public interface FanliMapper {
 
 	Map<String, Object> getStaticByKey(@Param("desShow_key")String desShow_key);
 
+	Map<String, Object> getUserFormid(@Param("user_id")String user_id);
+	
+	Integer getUserFormidCount(@Param("user_id")String user_id);
+
+	int saveFormids(@Param("data")List<Map<String, Object>> list);
+
+	String getFather(@Param("user_id")String user_id);
+
+	int appendCredit(@Param("user_id")String fuid, @Param("credit")String credit);
+
+	int initialCredit(@Param("user_id")String user_id);
+
 }

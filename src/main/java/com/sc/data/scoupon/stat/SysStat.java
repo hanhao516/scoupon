@@ -28,6 +28,12 @@ public class SysStat {
 	public static String pci_local_path = "/data/image/";
 //	public static String pci_local_path = "c:/image/";
 	public static String web_path = "http://tk.7fanli.com:8080/Seven/image/";
+	//没分享一个新用户积分
+	public static String share_credit = "0.5";
+	//积分汇率
+	public static int credit_rate = 1;
+	
+	
 	//微信公众号 appid 和appsecret
 //			appId = "wx08327828a2ce2fe5"
 //			appSecret = "a017122d2e8dd8e0c37bbd4f31e97be4"

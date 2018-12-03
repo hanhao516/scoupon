@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sc.data.scoupon.dao.ShareMappper">
-    <select id="queryFans" resultType="java.lang.Long" parameterType="Map">
-      SELECT COUNT(ur.buy_user_id) FROM  user_info ui LEFT JOIN user_relation ur ON ui.user_id = ur.share_user_id  WHERE user_id = #{user_id} GROUP BY ur.share_user_id
+    <select id="getUserCredit" resultType="Map" parameterType="String">
+      SELECT credit,total_credit from user_credit 
+      			where user_id = #{user_id}
     </select>
-    <select id="fansDetailed" resultType="Map" parameterType="Map">
-        SELECT ao.auctionTitle auctionTitle,
-        ao.exShopTitle exShopTitle,
-        ao.exNickName exNickName,
-        ao.channel_yugu_share_fee channel_yugu_share_fee,
-        ao.createTime createTime,
-        ao.payStatus payStatus,
-        ao.totalAlipayFeeString totalAlipayFeeString
-        FROM almm_order ao
-        RIGHT JOIN (SELECT
-        order_id,user_id
-        FROM user_order_tb
-        WHERE user_id = #{user_id}) uo
-        ON uo.order_id = ao.taobaoTradeParentId
-        WHERE ao.payStatus = 3  AND earningTime &gt; '2018-03-01'  AND earningTime &lt;'2018-03-23'
+    <select id="childUserAndOrderCount" resultType="Map" parameterType="Map">
+     SELECT user_id,user_nick,create_time,count(order_id) as ordercount FROM (
+		SELECT a.user_id,b.user_nick,b.create_time,c.order_id 
+				FROM user_relation a
+				LEFT JOIN user_info b on a.user_id = b.user_id
+				LEFT JOIN user_order_tb c on a.user_id = c.user_id 
+				where a.fuid = #{user_id} and NOW() &lt;  lose_time
+		) d 
+		GROUP BY user_id,user_nick,create_time
+   	  <if test="ofset != null" >
+	       	limit ${ofset},${pageSize}
+	  </if>
     </select>
-    <select id="selectChildrenUser" resultType="com.sc.data.scoupon.model.User" parameterType="java.lang.String">
-       SELECT * FROM user_info  WHERE user_id=#{user_id}
+    <select id="creditDetail" resultType="Map" parameterType="String">
+  		SELECT COUNT(DISTINCT a.user_id) child_count,count(c.order_id) order_count ,SUM(d.feeString*0.1) pre_credit
+				FROM user_relation a
+				LEFT JOIN user_order_tb c on a.user_id = c.user_id 
+				LEFT JOIN almm_order d on c.order_id = d.taobaoTradeParentId
+				where a.fuid = #{user_id} and NOW() &lt; lose_time and d.payStatus = '12'
     </select>
-    <select id="monthEstimate" resultType="Map" parameterType="Map">
-        SELECT SUM(ao.channel_yugu_user_fee) money ,SUM(ao.channel_yugu_share_fee) shareMoney
-        FROM almm_order ao
-        RIGHT JOIN (SELECT
-        order_id,user_id
-        FROM user_order_tb
-        WHERE user_id = #{user_id}) uo
-        ON uo.order_id = ao.taobaoTradeParentId
-        WHERE ao.payStatus = 3  AND earningTime &gt; #{startTime} AND earningTime &lt; #{endTime} GROUP BY uo.user_id;
+    <select id="childUserOrders" resultType="Map" parameterType="Map">
+        SELECT user_id,createTime,earningTime,concat(taobaoTradeParentId,'') taobaoTradeParentId,exShopTitle,payStatus,
+			auctionTitle,auctionNum,totalAlipayFeeString,feeString,realPayFeeString,
+			finalfee,tkPubShareFeeString,tb_service_fee,service_fee,tax_fee,share_fee
+			from `fanli`.`user_order_tb` a 
+			LEFT JOIN `fanli`.`almm_order` b on a.order_id = b.taobaoTradeParentId 
+			where    b.payStatus = '${payStatus}' and a.user_id = ${user_id}
+			<if test="startDate != null and endDate != null" >
+			 	<if test='payStatus=="3"'>
+                   and ( earningTime &gt;= '${startDate}'  and earningTime &lt;= '${endDate}' ) 
+                </if>
+                <if test='payStatus!="3"'>
+                   and ( createTime &gt;= '${startDate}' and createTime &lt;= '${endDate}' ) 
+                </if>
+			</if>
+			<if test='payStatus=="3"'>
+			  	order by   earningTime desc
+			</if>
+			<if test='payStatus!="3"'>
+			   	order by  createTime desc
+			</if>  
+			<if test="ofset != null" >
+		       	limit ${ofset},${pageSize}
+			</if>
     </select>
-
-    <select id="queryListFans" parameterType="Map" resultType="com.sc.data.scoupon.model.User">
-        SELECT
-        ur.buy_user_id user_id,
-        ur.relation_time,
-        ur.lose_relation_time
-        FROM user_info ui
-        LEFT JOIN user_relation ur
-        ON ui.user_id = ur.share_user_id
-        WHERE ui.user_id = #{user_id}
-        AND ur.lose_relation_time  &gt; #{endTime}
-        GROUP BY ur.buy_user_id
-    </select>
-
+  	 <update id="upCredit">
+  	     UPDATE  `fanli`.`user_credit`  SET credit = (credit - ${credit}) 
+  	     where user_id = #{user_id}
+ 	 </update>
+   	 <update id="creditToBalance">
+  	     UPDATE user_amt_tb SET balance = (balance+ ${credit}) , total_amt = (total_amt+ ${credit})
+			WHERE user_id = #{user_id}
+ 	 </update>
 </mapper>

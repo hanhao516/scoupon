@@ -26,6 +26,7 @@ import com.sc.data.scoupon.model.AlipayInfo;
 import com.sc.data.scoupon.model.PayTask;
 import com.sc.data.scoupon.model.User;
 import com.sc.data.scoupon.service.FanliService;
+import com.sc.data.scoupon.service.ShareService;
 import com.sc.data.scoupon.stat.SysStat;
 import com.sc.data.scoupon.utils.Conver;
 import com.sc.data.scoupon.utils.PatternUtils;
@@ -39,8 +40,11 @@ import com.sc.data.scoupon.utils.WxUtils;
 public class WxController {
 	@Autowired
 	private FanliService fanliService;
+	
+	@Autowired
+    private ShareService shareService;
 
-	private static Logger logger = Logger.getLogger(WxController.class);
+//	private static Logger logger = Logger.getLogger(WxController.class);
 
 	@RequestMapping("test.do")
 	@ResponseBody
@@ -66,6 +70,17 @@ public class WxController {
 			boolean flag = Boolean.valueOf((String) map.get("flag"));
 			map.put("flag", flag);
 		}
+		String json = JSONObject.toJSONString(map); 
+		if(StringUtils.isNotBlank(callback))
+			return   callback + "(" +json+")";
+		else
+			return   json;
+	}
+	@RequestMapping("getValByKey.do")
+	@ResponseBody
+	public String  getValByKey(HttpServletRequest req ,HttpServletResponse res
+			,String key,String callback) throws IOException{
+		Map<String, Object> map = fanliService.getStaticByKey(key);
 		String json = JSONObject.toJSONString(map); 
 		if(StringUtils.isNotBlank(callback))
 			return   callback + "(" +json+")";
@@ -153,11 +168,14 @@ public class WxController {
 			return_map.put("token", token);
 		}else{
 			//token无效，获取
-			String appid = SysStat.xiaoshuili_wx_appId;
-			String appSecret = SysStat.xiaoshuili_wx_appSecret;
+			String appid = "wxe0800622f961422c";
+			String appSecret = "66e228710b4ac78f00e0a75b3e27ee27";
 			if(StringUtils.isNotBlank(wx)&&wx.equals("1")){
 				appid = SysStat.xiaoshuili_wx_appId1;
 				appSecret = SysStat.xiaoshuili_wx_appSecret1;
+			} else if (StringUtils.isNotBlank(wx)&&wx.equals("2")){
+				appid = SysStat.xiaoshuili_wx_appId;
+				appSecret = SysStat.xiaoshuili_wx_appSecret;
 			}
 			//{"session_key":"fU0fFA1yKukNLNu\/zZu1Og==","openid":"oVhVc5eT19_7V61v8Kgn2UspMNIU"}
 			Map<String, Object> wx_res = new WxUtils().getWxUserIdByJscode(appid , appSecret, code);
@@ -336,6 +354,8 @@ public class WxController {
 //		map.put("unused", unused);
 		Map<String, Object> adzone_info = fanliService.getAdzoneInfoByUserId(user_id);
 		map.putAll(adzone_info);
+		Map<String, Object> credit_info  = shareService.getUserCredit(user_id);
+		map.putAll(credit_info);
 		String json = JSONObject.toJSONString(map); 
 		if(StringUtils.isNotBlank(callback)){
 			return callback + "(" +json+")";
@@ -487,6 +507,107 @@ public class WxController {
 		  		int count = fanliService.saveFormids(user_id,formid_arr);
 			}
 		}
+		String json = JSONObject.toJSONString(returnMap); 
+		if(StringUtils.isNotBlank(callback))
+			return   callback + "(" +json+")";
+		else
+			return   json;
+	}
+	
+	/**
+	 * 自用户和订单数查询
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="childUserAndOrderCount.do",produces="application/javascript;charset=UTF-8")
+	@ResponseBody
+	public String  childUserAndOrderCount(HttpServletRequest req ,HttpServletResponse res,String token,
+			String pageNo,String pageSize,String callback) throws IOException{
+		Map<String, Object> returnMap = new HashMap<String, Object>(); //返回结果
+  		String user_id = fanliService.getUserIdByToken(token);
+  		List<Map<String ,Object>>  list = shareService.childUserAndOrderCount(pageNo, pageSize,user_id);
+		returnMap.put("pageNo", pageNo);
+		returnMap.put("pageSize", pageSize);
+		returnMap.put("list", list);
+
+		String json = JSONObject.toJSONString(returnMap); 
+		if(StringUtils.isNotBlank(callback))
+			return   callback + "(" +json+")";
+		else
+			return   json;
+	}
+	/**
+	 * 自用户和订单数查询
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="creditDetail.do",produces="application/javascript;charset=UTF-8")
+	@ResponseBody
+	public String  creditDetail(HttpServletRequest req ,HttpServletResponse res,String token,
+			String callback) throws IOException{
+  		String user_id = fanliService.getUserIdByToken(token);
+  		Map<String ,Object>  map = shareService.creditDetail(user_id);
+
+		String json = JSONObject.toJSONString(map); 
+		if(StringUtils.isNotBlank(callback))
+			return   callback + "(" +json+")";
+		else
+			return   json;
+	}
+	/**
+	 * 子用户订单积分查询
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="childUserOrders.do",produces="application/javascript;charset=UTF-8")
+	@ResponseBody
+	public String  childUserOrders(HttpServletRequest req ,HttpServletResponse res,String token,
+			String pageNo,String pageSize,String child_id,String callback) throws IOException{
+		Map<String, Object> returnMap = new HashMap<String, Object>(); //返回结果
+//  		String user_id = fanliService.getUserIdByToken(token);
+  		
+		Map<String ,Object> order_param = new HashMap<String, Object>();            //查询条件
+		String payStatus = req.getParameter("payStatus");
+		if(StringUtils.isNotBlank(payStatus) && !payStatus.equals("null")  )
+			order_param.put("payStatus", payStatus);
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+  		List<Map<String ,Object>>  list = shareService.childUserOrders(pageNo, pageSize, child_id,startDate, endDate,order_param);
+		returnMap.put("pageNo", pageNo);
+		returnMap.put("pageSize", pageSize);
+		returnMap.put("list", list);
+
+		String json = JSONObject.toJSONString(returnMap); 
+		if(StringUtils.isNotBlank(callback))
+			return   callback + "(" +json+")";
+		else
+			return   json;
+	}
+	/**
+	 * 积分转入余额
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="creditToBalance.do",produces="application/javascript;charset=UTF-8")
+	@ResponseBody
+	public String  creditToBalance(HttpServletRequest req ,HttpServletResponse res,String token,
+			String callback) throws Exception{
+		Map<String, Object> returnMap = new HashMap<String, Object>(); //返回结果
+		String user_id = fanliService.getUserIdByToken(token);
+		//查出积分
+		Map<String, Object> credit_info = shareService.getUserCredit(user_id);
+		String credit = credit_info.get("credit")==null?"0":credit_info.get("credit").toString();
+		int count = shareService.creditToBalance(user_id,credit);
+		returnMap.put("count", count);
+		
 		String json = JSONObject.toJSONString(returnMap); 
 		if(StringUtils.isNotBlank(callback))
 			return   callback + "(" +json+")";

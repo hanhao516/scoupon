@@ -183,7 +183,7 @@ public interface FanliService {
 
 	Map<String, Object> getOrderDetail(Map<String, Object> difOrder);
 
-	void dealEndOverStatus(Map<String, Object> difOrder, String payStatus);
+	void dealEndOverStatus(Map<String, Object> difOrder, String payStatus) throws Exception;
 
 	int AppendOrderAmt(Map<String, Object> order_detail);
 
@@ -192,5 +192,7 @@ public interface FanliService {
 	Map<String, Object> getStaticByKey(String desShow_key);
 
 	int saveFormids(String user_id, String[] formid_arr);
+
+	Map<String, Object> getUserFormid(String user_id);
 
 }

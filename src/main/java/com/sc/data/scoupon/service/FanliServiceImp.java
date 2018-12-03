@@ -32,11 +32,13 @@ import com.sc.data.scoupon.model.AlmmAdzone;
 import com.sc.data.scoupon.model.IdentCode;
 import com.sc.data.scoupon.model.PayTask;
 import com.sc.data.scoupon.model.User;
+import com.sc.data.scoupon.stat.SysStat;
 import com.sc.data.scoupon.utils.Conver;
 import com.sc.data.scoupon.utils.HeimaUtils;
 import com.sc.data.scoupon.utils.MD5Util;
 import com.sc.data.scoupon.utils.Msg;
 import com.sc.data.scoupon.utils.MyDateUtil;
+import com.sc.data.scoupon.utils.PageUtils;
 import com.sc.data.scoupon.utils.RandomCodeUtil;
 import com.sc.data.scoupon.utils.SnowflakeIdWorker;
 import com.sc.data.scoupon.utils.WXQR;
@@ -100,6 +102,7 @@ public class FanliServiceImp implements FanliService {
             Map<String, Object> user_map = this.selectUser(user).get(0);
             String user_id = user_map.get("user_id") + "";
             fanliMapper.initialAmt(user_id);
+            fanliMapper.initialCredit(user_id);
         }
         return count;
     }
@@ -211,22 +214,14 @@ public class FanliServiceImp implements FanliService {
         param.put("endDate", endDate);
         param.put("user_id", user_id);
         param.putAll(order_param);
-        this.pageLimitSet(pageNo, pageSize, param);
+        PageUtils.pageLimitSet(pageNo, pageSize, param);
         logger.info("getUserOrders start：{param：" + param.toString());
         List<Map<String, Object>> list = fanliMapper.getUserOrders(param);
         logger.info("getUserOrders end：{list：" + list.toString());
         return list;
     }
 
-    private void pageLimitSet(String pageNo, String pageSize, Map<String, Object> param) {
-        if (pageNo == null || pageSize == null)
-            return;
-        int pn = Integer.parseInt(pageNo);
-        int ps = Integer.parseInt(pageSize);
-        int down = ps * (pn - 1);
-        param.put("pageSize", pageSize);
-        param.put("ofset", down + "");
-    }
+
 
     @Override
     public int alipayInfoSave(AlipayInfo alipayInfo) {
@@ -297,7 +292,7 @@ public class FanliServiceImp implements FanliService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_id", user_id);
         logger.info("drawDetail start：{map：" + map.toString());
-        this.pageLimitSet(pageNo, pageSize, map);
+        PageUtils.pageLimitSet(pageNo, pageSize, map);
         List<Map<String, Object>> list = fanliMapper.drawDetail(map);
         logger.info("drawDetail end：{list：" + list.toString());
         return list;
@@ -356,7 +351,7 @@ public class FanliServiceImp implements FanliService {
     public List<Map<String, Object>> tradeList(String pageNo,
                                                String pageSize, Map<String, Object> param) {
         logger.info("tradeList start：{param：" + param.toString());
-        this.pageLimitSet(pageNo, pageSize, param);
+        PageUtils.pageLimitSet(pageNo, pageSize, param);
         List<Map<String, Object>> list = fanliMapper.tradeList(param);
         logger.info("tradeList end：{list：" + list.toString());
         return list;
@@ -438,7 +433,7 @@ public class FanliServiceImp implements FanliService {
         map.put("user_id", user_id);
         map.put("lm", lm);
         logger.info("incomeDetail incomeDetail start：{map：" + map.toString());
-        this.pageLimitSet(pageNo, pageSize, map);
+        PageUtils.pageLimitSet(pageNo, pageSize, map);
         List<Map<String, Object>> list = fanliMapper.incomeDetail(map);
         logger.info("incomeDetail end and incomeDetail incomeDetail end：{list：" + list.toString());
         return list;
@@ -492,8 +487,10 @@ public class FanliServiceImp implements FanliService {
             user.setUser_nick(param.get("nickName")==null?null:param.get("nickName").toString());
             user.setUser_pic(param.get("avatarUrl")==null?null:param.get("avatarUrl").toString());
 			newUserCount = this.insertUser(user);
-			if(StringUtils.isNotBlank(fuid)&&newUserCount==1){
+			if(StringUtils.isNotBlank(fuid)&&!"undefined".equals(fuid)&&newUserCount==1){
 				this.saveRelation(openid,fuid);
+				fanliMapper.appendCredit(fuid,SysStat.share_credit);
+
 			}
 			// 绑定父子关系
             logger.info("apendWxInfo insertWxUser end：{newUserCount：" + newUserCount);
@@ -853,7 +850,7 @@ public class FanliServiceImp implements FanliService {
         downLimit = sdfm.format(time) + "01";
         map.put("downLimit", downLimit);
         logger.info("unusedDetail start：{map：" + map.toString());
-        this.pageLimitSet(pageNo, pageSize, map);
+        PageUtils.pageLimitSet(pageNo, pageSize, map);
         List<Map<String, Object>> list = fanliMapper.unusedDetail(map);
         logger.info("unusedDetail start：{list：" + list.toString());
         return list;
@@ -865,7 +862,7 @@ public class FanliServiceImp implements FanliService {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("trade_id", trade_id);
         logger.info("tradeIdDetail start：{param：" + param.toString());
-        this.pageLimitSet(pageNo, pageSize, param);
+        PageUtils.pageLimitSet(pageNo, pageSize, param);
         List<Map<String, Object>> list = fanliMapper.tradeIdDetail(param);
         logger.info("tradeIdDetail end：{list：" + list.toString());
         return list;
@@ -916,7 +913,7 @@ public class FanliServiceImp implements FanliService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_id", user_id);
         logger.info("getshareRelationByUserId start：" + user_id.toString());
-        this.pageLimitSet(pageNo, pageSize, map);
+        PageUtils.pageLimitSet(pageNo, pageSize, map);
         List<Map<String, Object>> list = fanliMapper.getshareRelationByUserId(map);
         logger.info("getshareRelationByUserId end：" + list.toString());
         return list;
@@ -927,7 +924,7 @@ public class FanliServiceImp implements FanliService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_id", user_id);
         logger.info("getshareOrdersByUserId start：" + user_id.toString());
-        this.pageLimitSet(pageNo, pageSize, map);
+        PageUtils.pageLimitSet(pageNo, pageSize, map);
         List<Map<String, Object>> list = fanliMapper.getshareOrdersByUserId(map);
         logger.info("getshareOrdersByUserId end：" + list.toString());
         return list;
@@ -938,7 +935,7 @@ public class FanliServiceImp implements FanliService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_id", user_id);
         logger.info("getshareItemsByUserId start：" + user_id.toString());
-        this.pageLimitSet(pageNo, pageSize, map);
+        PageUtils.pageLimitSet(pageNo, pageSize, map);
         List<Map<String, Object>> list = fanliMapper.getshareItemsByUserId(map);
         logger.info("getshareItemsByUserId end：" + list.toString());
         return list;
@@ -1510,19 +1507,50 @@ public class FanliServiceImp implements FanliService {
 	}
 
 	@Override
-	public void dealEndOverStatus(Map<String, Object> difOrder, String payStatus) {
-		Map<String, Object> order_detail = this.getOrderDetail(difOrder);
+	public void dealEndOverStatus(Map<String, Object> difOrder, String payStatus) throws Exception {
+        logger.info("dealEndOverStatus start：{difOrder：" + difOrder.toString()+"||payStatus:"+payStatus);
+		Map<String, Object> order_detail = fanliMapper.getOrderDetail(difOrder);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("adzone_id", order_detail.get("adzoneid"));
+		String user_id = fanliMapper.getAdzoneInfo(param).get("user_id").toString();
+		//寻找父user 有计算服务费  没有 不计算服务费
+		String fuid = fanliMapper.getFather(user_id);
+		
 		BigDecimal feeString = (BigDecimal) order_detail.get("feeString");
 		BigDecimal tb_service_fee = feeString.multiply(new BigDecimal(0.1));
-		BigDecimal service_fee = feeString.multiply(new BigDecimal(0.2));
-		BigDecimal finalfee = feeString.subtract(service_fee).subtract(tb_service_fee);
 		order_detail.put("tb_service_fee", tb_service_fee);
-		order_detail.put("service_fee", service_fee);
+		int credit_count = 0;
+		if(StringUtils.isBlank(fuid)){
+			BigDecimal service_fee = feeString.multiply(new BigDecimal(0.2));
+			order_detail.put("service_fee", service_fee);
+		}else{
+			BigDecimal service_fee = tb_service_fee;
+			BigDecimal share_fee = tb_service_fee;
+			order_detail.put("service_fee", service_fee);
+			order_detail.put("share_fee", share_fee);
+			//更新父用户积分
+			credit_count =fanliMapper.appendCredit(fuid,share_fee.toString());
+		}
+			
+		BigDecimal finalfee = feeString.multiply(new BigDecimal(0.7));
 		order_detail.put("finalfee", finalfee);
 		order_detail.put("payStatus", payStatus);
 		System.out.println(order_detail);
-		this.upOrderStat(order_detail);
-		this.AppendOrderAmt(order_detail);
+		//更新状态
+		int upCount = fanliMapper.upOrderStat(order_detail);
+		//更新余额
+		int amt_count = fanliMapper.AppendOrderAmt(order_detail);
+		
+		//插入记录
+		PayTask payTask = new PayTask();
+		payTask.setUser_id(user_id);
+		payTask.setType("1");
+		payTask.setMoney(finalfee.doubleValue());
+		payTask.setNote((String) order_detail.get("auctionTitle"));
+		int pay_count = fanliMapper.payTastSave(payTask);
+        logger.info("dealEndOverStatus end：{upCount="+upCount+", credit_count="+credit_count+", amt_count="+amt_count+",pay_count="+pay_count);
+		if(upCount!=1 || amt_count!=1 || pay_count!=1 )
+			throw new Exception("upCount="+upCount+", credit_count="+credit_count+", amt_count="+amt_count+",pay_count="+pay_count);
 	}
 	@Override
 	public int AppendOrderAmt(Map<String, Object> order_detail) {
@@ -1555,20 +1583,24 @@ public class FanliServiceImp implements FanliService {
 
 	@Override
 	public int saveFormids(String user_id, String[] formid_arr) {
-		// TODO Auto-generated method stub
 		int in_count = 0;
 		//查询formid是否大于10个  大于则不执行插入
-//		int  exit_count = fanliMapper.getFormidCount(user_id);
-//		if(exit_count < 10 ){
-//			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-//			for (int i = 0; i < formid_arr.length; i++) {
-//				Map<String, Object> map = new HashMap<String, Object>();
-//				map.put("user_id", user_id);
-//				map.put("formid", formid_arr[i]);
-//			}
-//			in_count = fanliMapper.saveFormids(list);
-//		}
+		int  exit_count = fanliMapper.getUserFormidCount(user_id);
+		if(exit_count < 10 ){
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			for (int i = 0; i < formid_arr.length; i++) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("user_id", user_id);
+				map.put("formid", formid_arr[i]);
+				list.add(map);
+			}
+			in_count = fanliMapper.saveFormids(list);
+		}
 		
 		return in_count ;
+	}
+	@Override
+	public Map<String, Object> getUserFormid(String user_id) {
+		return fanliMapper.getUserFormid(user_id) ;
 	}
 }

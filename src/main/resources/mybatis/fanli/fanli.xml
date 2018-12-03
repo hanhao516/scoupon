@@ -341,6 +341,12 @@
 		values
 			(#{user_id},now())
  	 </insert>
+ 	 <insert id="initialCredit" parameterType="String">
+		insert into `fanli`.`user_credit`
+			(user_id,credit)
+		values
+			(#{user_id},0)
+ 	 </insert>
  	  <select id="getAmtInfo" resultType="Map" parameterType="String">
 		SELECT
 			user_id,total_amt,balance,draw_money,time
@@ -780,14 +786,16 @@
  	 </select>
  	  <select id="getAdzoneInfo" resultType="Map" parameterType="Map">
 		select * from `fanli`.`almm_adzone` 
-			<where>
+			where 1=1 
 		     <if test="user_id != null" >
-		       	user_id = #{user_id}
+		       	and	user_id = #{user_id}
 		 	 </if>
 		     <if test="site_id != null" >
 		       	AND	site_id = #{site_id}
 		 	 </if>
-		 	</where>
+		 	 <if test="adzone_id != null" >
+		       	AND	adzone_id = #{adzone_id}
+		 	 </if>
 		 	<if test="ofset != null" >
 		       	limit ${ofset},${pageSize}
 			</if>
@@ -901,10 +909,13 @@ FROM (SELECT
  	     	<if test="service_fee != null" >
 		       	, service_fee = #{service_fee} 
 		 	</if>
+ 	     	<if test="share_fee != null" >
+		       	, share_fee = #{share_fee} 
+		 	</if>
  	     	<if test="finalfee != null" >
 		       	, finalfee = #{finalfee} 
 		 	</if>
- 	     where taobaoTradeParentId=#{taobaoTradeParentId}
+ 	     where taobaoTradeParentId=#{taobaoTradeParentId} and order_item_id = #{order_item_id}
  	 </update>
 	 <update id="bindAdzoneId" parameterType="Map">
 		UPDATE `fanli`.`almm_adzone` set user_id = #{user_id}  where user_id = '0' order by id asc limit 1
@@ -938,9 +949,9 @@ FROM (SELECT
 				where a.create_date =DATE_FORMAT(now(),'%Y-%m-%d') and a.token=#{token} 
  	 </select>
 	 <select id="getOrderDetail" resultType="Map" parameterType="Map">
-	     	select taobaoTradeParentId,payStatus,feeString,adzoneid
+	     	select taobaoTradeParentId,payStatus,feeString,adzoneid,order_item_id,auctionTitle
 	     	 FROM `fanli`.`almm_order` 
-	     	 where taobaoTradeParentId = #{taobaoTradeParentId} LIMIT 1
+	     	 where taobaoTradeParentId = #{taobaoTradeParentId} and order_item_id=#{order_item_id}
  	 </select>
  	 <update id="upUserPicAndNickByToken" parameterType="Map">
  	     UPDATE `fanli`.`user_info` 
@@ -958,4 +969,30 @@ FROM (SELECT
  	 <select id="getStaticByKey" resultType="Map" parameterType="String">
 		SELECT value as flag from `fanli`.`static_val` where id = #{desShow_key}
  	 </select>
+ 	 <select id="getUserFormidCount" resultType="Integer" parameterType="String">
+			SELECT  count(formid) FROM formid
+			WHERE wx_id = (SELECT wx_id from user_info where user_id = #{user_id})
+			 AND formid_status = '0' AND losetime > NOW()
+ 	 </select>
+ 	 <select id="getUserFormid" resultType="Map" parameterType="String">
+			SELECT  formid,wx_id FROM formid
+			WHERE wx_id = (SELECT wx_id from user_info where user_id = #{user_id})
+			 AND formid_status = '0' AND losetime > NOW() LIMIT 1
+ 	 </select>
+ 	 <select id="getFather" resultType="String" parameterType="String">
+			SELECT fuid FROM user_relation 
+				where user_id = #{user_id} and NOW() &lt;  lose_time
+ 	 </select>
+ 	 <insert id="saveFormids" parameterType="List">
+		REPLACE into `fanli`.`formid` (formid,wx_id,ctime,losetime) 
+			values
+		<foreach collection="data" item="td" index="index" separator=",">
+			(#{td.formid},(SELECT wx_id from user_info where user_id = #{td.user_id})
+			,NOW(),DATE_ADD(NOW(),INTERVAL (7*24-1) hour))
+		</foreach>
+ 	 </insert>
+   	 <update id="appendCredit">
+  	     UPDATE  `fanli`.`user_credit`  SET credit = (credit + ${credit}) , total_credit = (total_credit + ${credit})
+  	     where user_id = #{user_id}
+ 	 </update>
 </mapper>

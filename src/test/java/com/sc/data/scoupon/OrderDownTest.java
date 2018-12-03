@@ -68,14 +68,6 @@ public class OrderDownTest {
 		a.f = service;
 		a.dealAlmmOrders(orders);
     }
-//    @Test
-//    public void test4(){
-//    	try {
-//			ggController.test(request, response);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    }
+
 
 }

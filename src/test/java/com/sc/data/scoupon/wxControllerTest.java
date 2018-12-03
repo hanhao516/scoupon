@@ -46,7 +46,7 @@ public class wxControllerTest {
         this.session = new MockHttpSession();
         this.request = new MockHttpServletRequest();
         this.response = new MockHttpServletResponse();
-        this.token = "33fe2abf6fef47bea4319da1514edb5f";
+        this.token = "100aa571828a4d1295c730f022261005";
     }
 
 
@@ -56,13 +56,55 @@ public class wxControllerTest {
 //    	s = this.alipayInfoSaveTest();
 //    	s = this.getAlipayInfo();
 //    	s = this.getAmtInfo();
-//    	s = this.selectUser();
+    	s = this.selectUser();
 //    	s = this.tradeList();
 //    	s = this.payTastSave();
-    	s = this.getTradeList();
+//    	s = this.getTradeList();
+//    	s = this.saveFormids();
+//    	s = this.childUserAndOrderCount();
+//    	s = this.childUserOrders();
+//    	try {
+//			s = this.creditToBalance();
+//		} catch (Exception e) {e.printStackTrace();}
+//    	s = this.creditDetail();
+
     	System.out.println(s);
     }
     
+    public String creditDetail() throws IOException{
+    	String callback = null;
+    	String s = ggController.creditDetail(request, response, token , callback );
+    	return s;
+    }
+    public String saveFormids() throws IOException{
+    	String callback = null;
+		String formids = "111,222,333";
+		String s = ggController.saveFormids(request, response, token,  formids , callback );
+    	return s;
+    }
+    public String childUserAndOrderCount() throws IOException{
+    	String pageNo = "1";
+    	String pageSize = "5";
+    	String callback = null;
+    	String s = ggController.childUserAndOrderCount(request, response, token, pageNo, pageSize, callback);
+    	return s;
+    }
+    public String childUserOrders() throws IOException{
+    	String pageNo = "1";
+    	String pageSize = "5";
+    	String callback = null;
+    	String child_id = "3";
+    	request.setParameter("payStatus", "3");
+    	request.setParameter("startDate", "2018-07-29 00:00:00");
+    	request.setParameter("endDate", "2018-12-02 00:00:00");
+		String s = ggController.childUserOrders(request, response, token, pageNo, pageSize,child_id , callback);
+    	return s;
+    }
+    public String creditToBalance() throws Exception{
+    	String callback = null;
+    	String s = ggController.creditToBalance(request, response, token, callback);
+    	return s;
+    }
     public String getTradeList() throws IOException{
     	String pageNo = "1";
 		String pageSize = "5";

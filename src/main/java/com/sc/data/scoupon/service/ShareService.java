@@ -4,15 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zxy on 2018/3/21.
+ * Created by yuejiajun on 2018/3/21.
  */
 public interface ShareService {
-    Long queryFans(String user_name);
-    List<Map<String, Object>> fansDetailed(Map<String,Object> map);
 
-    Object monthEstimate(Map<String, Object> map);
+	Map<String, Object> getUserCredit(String user_id);
 
-    Float rewardMoney(String userName,String startTime,String endTime);
+	List<Map<String, Object>> childUserAndOrderCount(String pageNo,
+			String pageSize, String user_id);
 
-    Map<String,Object> shareHand(String userName);
+	List<Map<String, Object>> childUserOrders(String pageNo, String pageSize,
+			String user_id, String startDate, String endDate, Map<String, Object> order_param);
+
+	int creditToBalance(String user_id, String credit) throws Exception;
+
+	Map<String, Object> creditDetail(String user_id);
 }
